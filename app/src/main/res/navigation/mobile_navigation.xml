@@ -30,6 +30,6 @@
     <fragment
         android:id="@+id/navigation_view_live_feed"
         android:name="com.production.smartsurvelliance.ViewLiveFeedFragment"
-        android:label="fragment_view_live_feed"
+        android:label="Live Feed"
         tools:layout="@layout/fragment_view_live_feed" />
 </navigation>
