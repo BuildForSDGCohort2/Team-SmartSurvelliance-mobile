@@ -19,3 +19,10 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+
+
+
+
+#GraphQL endpoint: https://s7dhxgida5gqfopk2pqajos3oy.appsync-api.us-west-2.amazonaws.com/graphql
+#GraphQL API KEY: da2-dh4kdoupcrbdvgeiz3qhqnl3du
