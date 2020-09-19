@@ -21,6 +21,9 @@ import com.amplifyframework.auth.AuthUserAttributeKey
 import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin
 import com.amplifyframework.auth.options.AuthSignUpOptions
 import com.amplifyframework.core.InitializationStatus
+import com.amplifyframework.core.model.query.Where
+import com.amplifyframework.datastore.generated.model.Comment
+import com.amplifyframework.datastore.generated.model.Post
 import com.amplifyframework.hub.HubChannel
 import com.amplifyframework.hub.HubEvent
 
@@ -49,8 +52,36 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+    }
 
-        
+    fun createPost() {
+        val post = Post.builder()
+            .title("create an Amplify DataStore App")
+            .build()
+
+        Amplify.DataStore.save(post,
+            {Timber.i("Saved a new post succeefully")},
+            {Timber.tag("Error saving post").e(it)}
+        )
+    }
+
+    fun getPost() {
+        Amplify.DataStore.query(Post::class.java,
+            { result -> Timber.i("Posts retrieved successfully") },
+            { error -> Timber.tag("Error retrieving posts").e(  error) }
+        )
+
+//        Amplify.DataStore.query(
+//            Comment::class.java, Where.matches(Post.STATUS.eq(PostStatus.ACTIVE)),
+//            {
+//                while (it.hasNext()) {
+//                    val comment: Comment = it.next()
+//                    val content: String = comment.content
+//                    Log.i("MyAmplifyApp", "Content: $content")
+//                }
+//            },
+//            { Log.e("MyAmplifyApp", "Query failed.", it) }
+//        )
     }
 
 //    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

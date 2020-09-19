@@ -5,4 +5,6 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="black_overlay">#66000000</color>
     <color name="playerBackgroud">#E1EBF6</color>
+    <color name="colorDecline">#D81B60</color>
+    <color name="colorConfirm">#008577</color>
 </resources>
