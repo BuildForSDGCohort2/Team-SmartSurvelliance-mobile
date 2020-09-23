@@ -1,0 +1,5 @@
+{
+    "tableName": "edgevisitors",
+    "partitionKeyName": "id",
+    "partitionKeyType": "S"
+}
