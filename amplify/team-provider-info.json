@@ -1,0 +1,22 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-smartsurvelliance-dev-33523-authRole",
+      "UnauthRoleArn": "arn:aws:iam::981220841828:role/amplify-smartsurvelliance-dev-33523-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::981220841828:role/amplify-smartsurvelliance-dev-33523-authRole",
+      "Region": "us-west-2",
+      "DeploymentBucketName": "amplify-smartsurvelliance-dev-33523-deployment",
+      "UnauthRoleName": "amplify-smartsurvelliance-dev-33523-unauthRole",
+      "StackName": "amplify-smartsurvelliance-dev-33523",
+      "StackId": "arn:aws:cloudformation:us-west-2:981220841828:stack/amplify-smartsurvelliance-dev-33523/4b3bbf80-f30e-11ea-84e9-0ae3e770e3b8",
+      "AmplifyAppId": "d1nvvhs0k6904f"
+    },
+    "categories": {
+      "auth": {
+        "smartsurvelliance18e83a4c": {
+          "hostedUIProviderCreds": "[]"
+        }
+      }
+    }
+  }
+}
