@@ -1,22 +1,15 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-smartsurvelliance-dev-33523-authRole",
-      "UnauthRoleArn": "arn:aws:iam::981220841828:role/amplify-smartsurvelliance-dev-33523-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::981220841828:role/amplify-smartsurvelliance-dev-33523-authRole",
+      "AuthRoleName": "amplify-smartsurveillance-dev-64534-authRole",
+      "UnauthRoleArn": "arn:aws:iam::209772379216:role/amplify-smartsurveillance-dev-64534-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::209772379216:role/amplify-smartsurveillance-dev-64534-authRole",
       "Region": "us-west-2",
-      "DeploymentBucketName": "amplify-smartsurvelliance-dev-33523-deployment",
-      "UnauthRoleName": "amplify-smartsurvelliance-dev-33523-unauthRole",
-      "StackName": "amplify-smartsurvelliance-dev-33523",
-      "StackId": "arn:aws:cloudformation:us-west-2:981220841828:stack/amplify-smartsurvelliance-dev-33523/4b3bbf80-f30e-11ea-84e9-0ae3e770e3b8",
-      "AmplifyAppId": "d1nvvhs0k6904f"
-    },
-    "categories": {
-      "auth": {
-        "smartsurvelliance18e83a4c": {
-          "hostedUIProviderCreds": "[]"
-        }
-      }
+      "DeploymentBucketName": "amplify-smartsurveillance-dev-64534-deployment",
+      "UnauthRoleName": "amplify-smartsurveillance-dev-64534-unauthRole",
+      "StackName": "amplify-smartsurveillance-dev-64534",
+      "StackId": "arn:aws:cloudformation:us-west-2:209772379216:stack/amplify-smartsurveillance-dev-64534/aea6c460-0084-11eb-bcee-0a10741d0c78",
+      "AmplifyAppId": "d5h6tf49jik27"
     }
   }
 }
