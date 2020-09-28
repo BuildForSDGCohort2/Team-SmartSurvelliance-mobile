@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "301561777685",
+    "firebase_url": "https://smart-surveillance-1eaf6.firebaseio.com",
+    "project_id": "smart-surveillance-1eaf6",
+    "storage_bucket": "smart-surveillance-1eaf6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:301561777685:android:fee87f601552953fe7081c",
+        "android_client_info": {
+          "package_name": "com.production.smartsurvelliance"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "301561777685-254ingn63ie39evumosiakdurn855mm8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeZNUuqyykO2jjLcAbAUp8GxONKW6nf4E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "301561777685-254ingn63ie39evumosiakdurn855mm8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

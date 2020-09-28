@@ -2,6 +2,8 @@ package com.production.smartsurvelliance.helper
 
 import android.content.Context
 import android.net.Uri
+import android.os.Build
+import android.widget.ImageView
 import androidx.annotation.Nullable
 import com.google.android.exoplayer2.C
 import com.google.android.exoplayer2.ExoPlayer
@@ -14,6 +16,9 @@ import com.google.android.exoplayer2.ui.PlayerView
 import com.google.android.exoplayer2.upstream.DataSource
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
 import com.google.android.exoplayer2.util.Util
+import com.production.smartsurvelliance.R
+import com.squareup.picasso.Picasso
+import timber.log.Timber
 
 fun PlayerView.preparePlayer(player: ExoPlayer, context: Context, musicUri: Uri) {
     val dataSourceFactory = DefaultHttpDataSourceFactory(
@@ -43,3 +48,9 @@ private fun buildMediaSource(
         else -> throw IllegalStateException("Unsupported type: $type")
     }
 }
+
+fun ImageView.loadImage(url:String?){
+    Timber.d(url.toString())
+    Picasso.get().load(url).into(this)
+}
+

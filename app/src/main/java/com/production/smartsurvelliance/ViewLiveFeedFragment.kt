@@ -4,11 +4,14 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 import android.net.Uri
 import android.os.Bundle
+import android.text.style.TtsSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.TimePicker
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -38,15 +41,14 @@ class ViewLiveFeedFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         mLibVLC = LibVLC(requireContext(), ArrayList<String>().apply {
-//            add("--no-drop-late-frames")
-//            add("--no-skip-frames")
-//            add("--rtsp-tcp")
+              add("--no-drop-late-frames")
+              add("--no-skip-frames")
+              add("--rtsp-tcp")
               add("--aout=opensles")
               add("--audio-time-stretch") // time stretching
               add("-vvv") // verbosity
               add("--http-reconnect")
               add("--network-caching="+6*1000);
-//              add("-vvv")
         })
         mMediaPlayer = MediaPlayer(mLibVLC)
     }
@@ -122,8 +124,6 @@ class ViewLiveFeedFragment : Fragment() {
 
 
         view_live_feed_button.setOnClickListener {
-
-
             //If User valid to play play song
             try {
                 it?.let {
@@ -169,6 +169,40 @@ class ViewLiveFeedFragment : Fragment() {
 //                            simpleVideoView.setVideoURI(uri)
 //                            simpleVideoView.requestFocus()
 //                            simpleVideoView.start()
+
+                            try {
+                                val name = "login";
+                                val password = "password";
+                                val cameraUrl = "100.00.00.01:9982";
+                                val rtspUrl = "rtsp://" + name + ":" + password + "@" + cameraUrl
+//            val httpUrl = "https://fetch-mc.s3.amazonaws.com/fetchmc/165_Daphne-ft.-Featurist---Allez-SHOW2BABI.COM.mp3"
+                                //val uri = Uri.parse(rtspUrl) // ..whatever you want url...or even file fromm asset
+
+                                Media(mLibVLC, uri).apply {
+                                    setHWDecoderEnabled(true, false);
+                                    addOption(":network-caching=150");
+                                    addOption(":clock-jitter=0");
+                                    addOption(":clock-synchro=0");
+                                    mMediaPlayer?.media = this
+
+                                }.release()
+
+                                mMediaPlayer?.play()
+
+                                //            val media: Media = Media(mLibVLC, getAssets().openFd(ASSET_FILENAME))
+                                //            mMediaPlayer!!.media = media
+                                //            media.release()
+
+
+                            } catch (e: IOException) {
+                                e.printStackTrace()
+                                Log.d(this.tag, "Here")
+                                Toast.makeText(requireContext(), e.message, Toast.LENGTH_LONG).show()//
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                                Toast.makeText(requireContext(), e.message, Toast.LENGTH_LONG).show()
+                            }
+
 
 
                         })
@@ -223,6 +257,7 @@ class ViewLiveFeedFragment : Fragment() {
                 }
             } catch (e: Exception) {
                e.printStackTrace()
+                Toast.makeText(requireContext(), e.message, Toast.LENGTH_LONG).show()
             }
 
 
