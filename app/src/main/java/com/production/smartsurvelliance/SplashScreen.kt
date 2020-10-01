@@ -17,7 +17,7 @@ class SplashScreen : AppCompatActivity() {
         Handler().postDelayed(object:Runnable {
             /*
            * Showing splash screen with a timer. This will be useful when you
-           * want to show case your app logo / company
+           * want to show case your app ic_logo / company
            */
           override fun run() {
                 // This method will be executed once the timer is over
