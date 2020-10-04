@@ -1,5 +1,6 @@
 package com.production.smartsurvelliance.services
 
+import VerificationData
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -58,12 +59,12 @@ class FirebaseMessagingService : FirebaseMessagingService() {
             val responseTitle = remoteMessage.notification?.let { it.title }?:"Check Payment Status"
 
 //            sendFCMNotification(this, responseBody)
-           // val imageUrl = gson.fromJson(responseBody, String::class.java)
+            val imageUrl = gson.fromJson(responseBody, VerificationData::class.java)
 
 
 //                val restaurant:Restaurant = gson.fromJson(restaurantString,Restaurant::class.java)
                 val intent = Intent(KEY_NEW_VISITOR_FILTER)
-                intent.putExtra(KEY_MESSAGE, responseBody)
+                intent.putExtra("IMAGE_URL", imageUrl.imageUrl)
                 localBroadCastManager.sendBroadcast(intent)
         }
     }

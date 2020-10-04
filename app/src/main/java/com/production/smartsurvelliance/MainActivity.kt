@@ -48,12 +48,19 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private var broadcastReceiver : BroadcastReceiver  =  object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            val message = intent?.getStringExtra(KEY_MESSAGE)
-            buzz(BuzzType.NOTIFICATION.pattern, this@MainActivity)
-            Timber.d(message)
-            Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+            val imageUrl = intent?.getStringExtra("IMAGE_URL")
 
-            displayDialog()
+            buzz(BuzzType.NOTIFICATION.pattern, this@MainActivity)
+            Timber.d(imageUrl)
+
+            Toast.makeText(context, imageUrl, Toast.LENGTH_LONG).show()
+
+            if(imageUrl != null) {
+                displayDialog(imageUrl)
+            } else {
+                displayDialog("")
+            }
+
         }
 
     }
@@ -116,37 +123,44 @@ class MainActivity : AppCompatActivity() {
         try {
             Timber.d("Getting Current User")
 
-            Timber.d(Amplify.Auth.currentUser.toString())
-            if(Amplify.Auth.currentUser != null) {
-                retriveCurrentToken()
-            } else {
-                Timber.d("Current does not exist User")
-
-                Amplify.Auth.signInWithWebUI(
-                    this,
-                    { result: AuthSignInResult ->
-                        run {
-                            Timber.tag("AuthQuickstart").i(
-                                result.toString()
-                            )
-                        }
-
-
-
-                    },
-                    { error: AuthException ->
-                        Timber.tag("AuthQuickstartE").e(
-                            error.toString()
-                        )
-                    }
-                )
-
+            Amplify.Auth.currentUser?.let {
 
             }
 
 
+                if(Amplify.Auth.currentUser != null) {
+                    Timber.d(Amplify.Auth.currentUser.toString())
+
+                    retriveCurrentToken()
+                } else {
+                    Timber.d("Current does not exist User")
+
+                    Amplify.Auth.signInWithWebUI(
+                        this,
+                        { result: AuthSignInResult ->
+                            run {
+                                Timber.tag("AuthQuickstart").i(
+                                    result.toString()
+                                )
+                            }
+
+
+
+                        },
+                        { error: AuthException ->
+                            Timber.tag("AuthQuickstartE").e(
+                                error.toString()
+                            )
+                        }
+                    )
+
+
+                }
+
+
         }
         catch(e: Exception) {
+            Timber.d("Current User does not exist");
             e.printStackTrace()
         }
 
@@ -339,7 +353,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun displayDialog(imageUrl: String ) {
+    private fun displayDialog(imageUrl: String = "") {
         val newFragment = VerifyPictureFragment.newInstance(true)
         val fm = supportFragmentManager.beginTransaction()
 
