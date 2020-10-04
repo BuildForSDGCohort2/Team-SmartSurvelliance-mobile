@@ -60,7 +60,7 @@ class HomeFragment : Fragment() {
             .build()
 
         Amplify.DataStore.save(post,
-            {Timber.i("Saved a new post succeefully")},
+            {Timber.i("Saved a new post successfully")},
             {Timber.tag("Error saving post").e(it)}
         )
     }
