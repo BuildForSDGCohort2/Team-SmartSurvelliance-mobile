@@ -7,7 +7,7 @@
 
 1. [Description](#desccription)
 2. [Dependencies](#dependencies)
-3. [Instation and Running](#installation)
+3. [Installation and Running](#installation)
 
 ## Desciption <a name="description"></a>
 This project in collaboration with [Facebook](
@@ -47,8 +47,8 @@ Host Images and Video streams
 Stream Video feeds from s3 in the mobile device
 
 ## Installation<a name="installation"></a>
-- Clone repoitory and run android studio
-- Make sure to turn on usb debudding if in case on test pysical phone or run via android emulator
+- Clone repository and run android studio
+- Make sure to turn on usb debudding if in case on test physical phone or run via android emulator
 
 <b>Note</b>: To pull or push AWS amplify configurations to the cloud one will need an AWS user with appropriate permissions. 
 
