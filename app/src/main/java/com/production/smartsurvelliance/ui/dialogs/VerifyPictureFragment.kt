@@ -1,13 +1,12 @@
 package com.production.smartsurvelliance.ui.dialogs
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.ViewModelProviders
 import com.production.smartsurvelliance.R
 import com.production.smartsurvelliance.databinding.FragmentVerifyPictureBinding
 
@@ -15,15 +14,35 @@ class VerifyPictureFragment : DialogFragment() {
 
     private lateinit var viewModel: VerifyPictureViewModel
     private lateinit var binding: FragmentVerifyPictureBinding
+    private lateinit var imageUrl: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_verify_picture, container, false)
+        val bundle = arguments
+        bundle?.let {
+            imageUrl = it.getString("IMAGE_URL", null)
 
-        binding.imageData = "https://fetch-mc.s3.amazonaws.com/fetchmc/Wasse-picture-B13.jpg"
+            binding.imageData = imageUrl
+
+
+//            if (imageUrl != null){
+//                binding.imageData = imageUrl
+//            } else {
+//                binding.imageData = "https://fetch-mc.s3.amazonaws.com/fetchmc/Wasse-picture-B13.jpg"
+//            }
+        }
+
+        binding = DataBindingUtil.inflate(
+            layoutInflater,
+            R.layout.fragment_verify_picture,
+            container,
+            false
+        )
+
+
 
         return binding.root
     }

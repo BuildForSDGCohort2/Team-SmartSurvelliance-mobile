@@ -9,9 +9,14 @@ import android.content.SharedPreferences
 import android.media.RingtoneManager
 import android.os.Build
 import android.provider.MediaStore.Images.Media.getBitmap
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.ViewModel
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.amplifyframework.api.ApiException
+import com.amplifyframework.api.graphql.model.ModelMutation
+import com.amplifyframework.core.Amplify
+import com.amplifyframework.datastore.generated.model.User
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.google.gson.Gson
@@ -40,6 +45,7 @@ class FirebaseMessagingService : FirebaseMessagingService() {
 
     private fun sendTokenToServer(token: String) {
         Timber.d("Sending Token to Server")
+//        updatePhoneIdInDataStore(token)
         Timber.d(token)
     }
 
@@ -61,6 +67,33 @@ class FirebaseMessagingService : FirebaseMessagingService() {
                 localBroadCastManager.sendBroadcast(intent)
         }
     }
+
+/*
+    private fun updatePhoneIdInDataStore(newToken: String) {
+
+
+        val currentUser = Amplify.Auth.currentUser
+
+        val user = User.builder()
+            .userId(currentUser.username).phoneId(mutableListOf(newToken))
+            .build()
+
+
+        Amplify.API.mutate(
+            ModelMutation.create(user),
+            { response -> Timber.d("Added Todo with id: " + response.getData().getId()) },
+            { error: ApiException? -> Timber.d("Create failed ${error}") })
+
+        Amplify.DataStore.observe(
+            User::class.java,
+            { Log.i("MyAmplifyApp", "Observation began.") },
+            { Log.i("MyAmplifyApp", "Post: ${it.item()}") },
+            { Log.e("MyAmplifyApp", "Observation failed.", it) },
+            { Log.i("MyAmplifyApp", "Observation complete.") }
+        )
+    }
+*/
+
 
 
 

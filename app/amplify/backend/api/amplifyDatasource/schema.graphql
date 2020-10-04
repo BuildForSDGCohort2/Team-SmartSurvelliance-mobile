@@ -1,10 +1,17 @@
-type Task @model {
+#type Task @model {
+#  id: ID!
+#  title: String!
+#  description: String
+#  status: String
+#}
+#type Note @model {
+#  id: ID!
+#  content: String!
+#}
+
+
+type User @model {
   id: ID!
-  title: String!
-  description: String
-  status: String
-}
-type Note @model {
-  id: ID!
-  content: String!
+  fcmRegistrationId: [String]
+  userId: String
 }

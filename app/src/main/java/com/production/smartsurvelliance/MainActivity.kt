@@ -28,6 +28,8 @@ import com.amplifyframework.auth.options.AuthSignOutOptions
 import com.amplifyframework.auth.result.AuthSignInResult
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.InitializationStatus
+import com.amplifyframework.core.model.query.Where
+import com.amplifyframework.datastore.generated.model.User
 import com.amplifyframework.datastore.generated.model.Visitor
 import com.amplifyframework.hub.HubChannel
 import com.amplifyframework.hub.HubEvent
@@ -86,11 +88,11 @@ class MainActivity : AppCompatActivity() {
 //        }
 
 
-        val text = intent.getStringExtra("image_url")
-        Timber.d("Home $text")
+        val imageUrl = intent.getStringExtra("image_url")
+        Timber.d("Home $imageUrl")
 
-        if(text != null) {
-            displayDialog()
+        if(imageUrl != null) {
+            displayDialog(imageUrl)
         }
 
         /**Fetch Current user session*/
@@ -102,20 +104,6 @@ class MainActivity : AppCompatActivity() {
 //        saveToDataStore()
 //        loginUi()
 
-        Amplify.Auth.signInWithWebUI(
-            this,
-            { result: AuthSignInResult ->
-                Timber.tag("AuthQuickstart").i(
-                    result.toString()
-                )
-
-
-            }
-        ) { error: AuthException ->
-            Timber.tag("AuthQuickstartE").e(
-                error.toString()
-            )
-        }
 
 /*
         Amplify.Auth.signOut(
@@ -125,17 +113,44 @@ class MainActivity : AppCompatActivity() {
         )
 */
 
-
-
-
         try {
+            Timber.d("Getting Current User")
+
             Timber.d(Amplify.Auth.currentUser.toString())
+            if(Amplify.Auth.currentUser != null) {
+                retriveCurrentToken()
+            } else {
+                Timber.d("Current does not exist User")
+
+                Amplify.Auth.signInWithWebUI(
+                    this,
+                    { result: AuthSignInResult ->
+                        run {
+                            Timber.tag("AuthQuickstart").i(
+                                result.toString()
+                            )
+                        }
+
+
+
+                    },
+                    { error: AuthException ->
+                        Timber.tag("AuthQuickstartE").e(
+                            error.toString()
+                        )
+                    }
+                )
+
+
+            }
+
+
         }
         catch(e: Exception) {
             e.printStackTrace()
         }
 
-        retriveCurrentToken()
+
 
         /**Subscribe to event listeners, listen to success or failure  from WebUi*/
         Amplify.Hub.subscribe(HubChannel.AUTH) { hubEvent: HubEvent<*> ->
@@ -208,7 +223,9 @@ class MainActivity : AppCompatActivity() {
 
                 // Get new Instance ID token
                 val token = task.result?.token
-                Timber.d(token)
+                Timber.d("Retrive $token")
+
+                updatePhoneIdInDataStore(token!!)
 
                 // Log and toast
 //                val msg = getString(R.string.msg_token_fmt, token)
@@ -270,16 +287,65 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    private fun displayDialog() {
+    private fun updatePhoneIdInDataStore(newToken: String) {
+
+
+        try {
+
+            val currentUser = Amplify.Auth.currentUser.username
+
+            Amplify.DataStore.query(User::class.java, Where.matches(User.USER_ID.eq(currentUser)),
+                { matches ->
+                    if (matches.hasNext()) {
+                        //Instance present
+                        val original = matches.next()
+
+                        Log.i("MyAmplifyApp", original.toString())
+                        //Add fcmRegistration token if not preset
+                        if(!original.fcmRegistrationId.contains(newToken)){
+                            val currentFCMTokens = original.fcmRegistrationId
+                            currentFCMTokens.add(newToken)
+
+                            //Adde unique user ids to the edited user object
+                            val edited = original.copyOfBuilder()
+                                .fcmRegistrationId(currentFCMTokens.toSet().toMutableList())
+                                .build()
+
+                            Amplify.DataStore.save(edited,
+                                { Log.i("MyAmplifyApp", "Updated a user.") },
+                                { Log.e("MyAmplifyApp", "Update failed.", it) }
+                            )
+                        }
+
+                    } else {
+                        //Create new object in Data store if not created
+
+                        val user = User.builder()
+                            .userId(currentUser)
+                            .fcmRegistrationId(mutableListOf(newToken))
+                            .build()
+
+                        Amplify.DataStore.save(user,
+                            { Log.i("MyAmplifyApp", "Created a user.") },
+                            { Log.e("MyAmplifyApp", "Created failed.", it) }
+                        )
+                    }
+                },
+                { Log.e("MyAmplifyApp", "Query failed.", it) }
+            )
+        } catch (e: Exception) {
+            Timber.d("Games type")
+            e.printStackTrace()
+        }
+    }
+
+    private fun displayDialog(imageUrl: String ) {
         val newFragment = VerifyPictureFragment.newInstance(true)
         val fm = supportFragmentManager.beginTransaction()
 
-//        newFragment.arguments = Bundle().apply {
-//            putString(ARGUMENT__ORDERID, orderId)
-//            putString(ARGUMENT__TIME, time)
-//            putString(ARGUMENT__RESTAURANT_NAME, restaurantName)
-//            putString(ARGUMENT__DISTANCE, distance)
-//        }
+        newFragment.arguments = Bundle().apply {
+            putString("IMAGE_URL", imageUrl)
+        }
 
         if(!newFragment.isVisible) {
             newFragment.show(fm, "Main")
