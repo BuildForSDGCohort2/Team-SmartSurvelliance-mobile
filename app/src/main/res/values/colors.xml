@@ -4,7 +4,8 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#2BB2A7</color>
     <color name="black_overlay">#66000000</color>
-    <color name="playerBackgroud">#E1EBF6</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="playerBackground">#E1EBF6</color>
     <color name="surveillance_black">#de000000</color>
     <color name="colorDecline">#D81B60</color>
     <color name="colorConfirm">#008577</color>
