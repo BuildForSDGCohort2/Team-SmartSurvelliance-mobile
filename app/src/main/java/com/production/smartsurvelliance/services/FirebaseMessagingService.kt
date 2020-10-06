@@ -1,5 +1,6 @@
 package com.production.smartsurvelliance.services
 
+import VerificationData
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -9,9 +10,13 @@ import android.content.SharedPreferences
 import android.media.RingtoneManager
 import android.os.Build
 import android.provider.MediaStore.Images.Media.getBitmap
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.ViewModel
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.amplifyframework.api.ApiException
+import com.amplifyframework.api.graphql.model.ModelMutation
+import com.amplifyframework.core.Amplify
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.google.gson.Gson
@@ -40,6 +45,7 @@ class FirebaseMessagingService : FirebaseMessagingService() {
 
     private fun sendTokenToServer(token: String) {
         Timber.d("Sending Token to Server")
+//        updatePhoneIdInDataStore(token)
         Timber.d(token)
     }
 
@@ -48,19 +54,55 @@ class FirebaseMessagingService : FirebaseMessagingService() {
 
 
         remoteMessage.notification?.let {
-            val responseBody = remoteMessage.notification?.let { it.body }?:"Payment Feedback"
-            val responseTitle = remoteMessage.notification?.let { it.title }?:"Check Payment Status"
+            val responseBody = remoteMessage.notification?.let { it.body }?:"Confirm If you know this individual"
+            val responseTitle = remoteMessage.notification?.let { it.title }?:"Photo Identification"
 
 //            sendFCMNotification(this, responseBody)
-           // val imageUrl = gson.fromJson(responseBody, String::class.java)
+            Timber.d("Game ${responseBody}")
+            Timber.d(remoteMessage.data.toString())
+
+//            var t = remoteMessage.data as VerificationData
+
+            Timber.d(remoteMessage.data["image_url"])
+
+            val imageUrl = remoteMessage.data["image_url"]
+
+//            val imageUrl = gson.fromJson(remoteMessage.data.toString(), VerificationData::class.java)
 
 
 //                val restaurant:Restaurant = gson.fromJson(restaurantString,Restaurant::class.java)
                 val intent = Intent(KEY_NEW_VISITOR_FILTER)
-                intent.putExtra(KEY_MESSAGE, responseBody)
+                intent.putExtra("IMAGE_URL", imageUrl)
                 localBroadCastManager.sendBroadcast(intent)
         }
     }
+
+/*
+    private fun updatePhoneIdInDataStore(newToken: String) {
+
+
+        val currentUser = Amplify.Auth.currentUser
+
+        val user = User.builder()
+            .userId(currentUser.username).phoneId(mutableListOf(newToken))
+            .build()
+
+
+        Amplify.API.mutate(
+            ModelMutation.create(user),
+            { response -> Timber.d("Added Todo with id: " + response.getData().getId()) },
+            { error: ApiException? -> Timber.d("Create failed ${error}") })
+
+        Amplify.DataStore.observe(
+            User::class.java,
+            { Log.i("MyAmplifyApp", "Observation began.") },
+            { Log.i("MyAmplifyApp", "Post: ${it.item()}") },
+            { Log.e("MyAmplifyApp", "Observation failed.", it) },
+            { Log.i("MyAmplifyApp", "Observation complete.") }
+        )
+    }
+*/
+
 
 
 
