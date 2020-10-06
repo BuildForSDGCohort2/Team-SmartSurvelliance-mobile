@@ -15,40 +15,32 @@ import com.amplifyframework.core.model.query.predicate.QueryField;
 
 import static com.amplifyframework.core.model.query.predicate.QueryField.field;
 
-/** This is an auto generated class representing the Visitor type in your schema. */
+/** This is an auto generated class representing the UserDetails type in your schema. */
 @SuppressWarnings("all")
-@ModelConfig(pluralName = "Visitors")
-@Index(name = "byVisitor", fields = {"userID","name"})
-public final class Visitor implements Model {
+@ModelConfig(pluralName = "UserDetails")
+public final class UserDetails implements Model {
   public static final QueryField ID = field("id");
-  public static final QueryField USER_ID = field("userID");
-  public static final QueryField NAME = field("name");
-  public static final QueryField IMAGE = field("image");
+  public static final QueryField FCM_REGISTRATION_ID = field("fcmRegistrationId");
+  public static final QueryField USER_ID = field("userId");
   private final @ModelField(targetType="ID", isRequired = true) String id;
-  private final @ModelField(targetType="ID", isRequired = true) String userID;
-  private final @ModelField(targetType="String") String name;
-  private final @ModelField(targetType="String") String image;
+  private final @ModelField(targetType="String") List<String> fcmRegistrationId;
+  private final @ModelField(targetType="String") String userId;
   public String getId() {
       return id;
   }
   
+  public List<String> getFcmRegistrationId() {
+      return fcmRegistrationId;
+  }
+  
   public String getUserId() {
-      return userID;
+      return userId;
   }
   
-  public String getName() {
-      return name;
-  }
-  
-  public String getImage() {
-      return image;
-  }
-  
-  private Visitor(String id, String userID, String name, String image) {
+  private UserDetails(String id, List<String> fcmRegistrationId, String userId) {
     this.id = id;
-    this.userID = userID;
-    this.name = name;
-    this.image = image;
+    this.fcmRegistrationId = fcmRegistrationId;
+    this.userId = userId;
   }
   
   @Override
@@ -58,11 +50,10 @@ public final class Visitor implements Model {
       } else if(obj == null || getClass() != obj.getClass()) {
         return false;
       } else {
-      Visitor visitor = (Visitor) obj;
-      return ObjectsCompat.equals(getId(), visitor.getId()) &&
-              ObjectsCompat.equals(getUserId(), visitor.getUserId()) &&
-              ObjectsCompat.equals(getName(), visitor.getName()) &&
-              ObjectsCompat.equals(getImage(), visitor.getImage());
+      UserDetails userDetails = (UserDetails) obj;
+      return ObjectsCompat.equals(getId(), userDetails.getId()) &&
+              ObjectsCompat.equals(getFcmRegistrationId(), userDetails.getFcmRegistrationId()) &&
+              ObjectsCompat.equals(getUserId(), userDetails.getUserId());
       }
   }
   
@@ -70,9 +61,8 @@ public final class Visitor implements Model {
    public int hashCode() {
     return new StringBuilder()
       .append(getId())
+      .append(getFcmRegistrationId())
       .append(getUserId())
-      .append(getName())
-      .append(getImage())
       .toString()
       .hashCode();
   }
@@ -80,16 +70,15 @@ public final class Visitor implements Model {
   @Override
    public String toString() {
     return new StringBuilder()
-      .append("Visitor {")
+      .append("UserDetails {")
       .append("id=" + String.valueOf(getId()) + ", ")
-      .append("userID=" + String.valueOf(getUserId()) + ", ")
-      .append("name=" + String.valueOf(getName()) + ", ")
-      .append("image=" + String.valueOf(getImage()))
+      .append("fcmRegistrationId=" + String.valueOf(getFcmRegistrationId()) + ", ")
+      .append("userId=" + String.valueOf(getUserId()))
       .append("}")
       .toString();
   }
   
-  public static UserIdStep builder() {
+  public static BuildStep builder() {
       return new Builder();
   }
   
@@ -102,7 +91,7 @@ public final class Visitor implements Model {
    * @return an instance of this model with only ID populated
    * @throws IllegalArgumentException Checks that ID is in the proper format
    */
-  public static Visitor justId(String id) {
+  public static UserDetails justId(String id) {
     try {
       UUID.fromString(id); // Check that ID is in the UUID format - if not an exception is thrown
     } catch (Exception exception) {
@@ -112,9 +101,8 @@ public final class Visitor implements Model {
               "creating a new object, use the standard builder method and leave the ID field blank."
       );
     }
-    return new Visitor(
+    return new UserDetails(
       id,
-      null,
       null,
       null
     );
@@ -122,55 +110,40 @@ public final class Visitor implements Model {
   
   public CopyOfBuilder copyOfBuilder() {
     return new CopyOfBuilder(id,
-      userID,
-      name,
-      image);
+      fcmRegistrationId,
+      userId);
   }
-  public interface UserIdStep {
+  public interface BuildStep {
+    UserDetails build();
+    BuildStep id(String id) throws IllegalArgumentException;
+    BuildStep fcmRegistrationId(List<String> fcmRegistrationId);
     BuildStep userId(String userId);
   }
   
 
-  public interface BuildStep {
-    Visitor build();
-    BuildStep id(String id) throws IllegalArgumentException;
-    BuildStep name(String name);
-    BuildStep image(String image);
-  }
-  
-
-  public static class Builder implements UserIdStep, BuildStep {
+  public static class Builder implements BuildStep {
     private String id;
-    private String userID;
-    private String name;
-    private String image;
+    private List<String> fcmRegistrationId;
+    private String userId;
     @Override
-     public Visitor build() {
+     public UserDetails build() {
         String id = this.id != null ? this.id : UUID.randomUUID().toString();
         
-        return new Visitor(
+        return new UserDetails(
           id,
-          userID,
-          name,
-          image);
+          fcmRegistrationId,
+          userId);
+    }
+    
+    @Override
+     public BuildStep fcmRegistrationId(List<String> fcmRegistrationId) {
+        this.fcmRegistrationId = fcmRegistrationId;
+        return this;
     }
     
     @Override
      public BuildStep userId(String userId) {
-        Objects.requireNonNull(userId);
-        this.userID = userId;
-        return this;
-    }
-    
-    @Override
-     public BuildStep name(String name) {
-        this.name = name;
-        return this;
-    }
-    
-    @Override
-     public BuildStep image(String image) {
-        this.image = image;
+        this.userId = userId;
         return this;
     }
     
@@ -197,26 +170,20 @@ public final class Visitor implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, String userId, String name, String image) {
+    private CopyOfBuilder(String id, List<String> fcmRegistrationId, String userId) {
       super.id(id);
-      super.userId(userId)
-        .name(name)
-        .image(image);
+      super.fcmRegistrationId(fcmRegistrationId)
+        .userId(userId);
+    }
+    
+    @Override
+     public CopyOfBuilder fcmRegistrationId(List<String> fcmRegistrationId) {
+      return (CopyOfBuilder) super.fcmRegistrationId(fcmRegistrationId);
     }
     
     @Override
      public CopyOfBuilder userId(String userId) {
       return (CopyOfBuilder) super.userId(userId);
-    }
-    
-    @Override
-     public CopyOfBuilder name(String name) {
-      return (CopyOfBuilder) super.name(name);
-    }
-    
-    @Override
-     public CopyOfBuilder image(String image) {
-      return (CopyOfBuilder) super.image(image);
     }
   }
   

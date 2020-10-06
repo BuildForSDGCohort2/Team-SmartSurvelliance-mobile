@@ -1,0 +1,26 @@
+# this is an auto generated file. This will be overwritten
+query GetUserDetails($id: ID!) {
+  getUserDetails(id: $id) {
+    id
+    fcmRegistrationId
+    userId
+    createdAt
+    updatedAt
+  }
+}
+query ListUserDetailss(
+  $filter: ModelUserDetailsFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listUserDetailss(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      fcmRegistrationId
+      userId
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
