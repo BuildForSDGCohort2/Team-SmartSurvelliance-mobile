@@ -12,14 +12,6 @@ const util = require('util');
 const axios = require('axios');
 const { PassThrough } = require('stream')
 
-// AWS.config.update({
-//   accessKeyId: "AKIATBV3IPRIOGEBEMYR",
-//   secretAccessKey: '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',
-//   region: 'us-east-1'
-// });
-
-
-
 
 // AWS.config.loadFromPath('./config.json');
 var s3 = new AWS.S3({apiVersion: '2006-03-01'});
