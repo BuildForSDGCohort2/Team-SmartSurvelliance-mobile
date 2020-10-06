@@ -8,7 +8,7 @@ import android.os.Handler
 class SplashScreen : AppCompatActivity() {
 
     //Splash screen timer
-    private val SPLASH_TIME_OUT : Long= 2000
+    private val SPLASH_TIME_OUT : Long= 5000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

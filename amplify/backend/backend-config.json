@@ -1,12 +1,4 @@
 {
-  "auth": {
-    "smartsurvelliance71b4bb6a": {
-      "service": "Cognito",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [],
-      "customAuth": false
-    }
-  },
   "api": {
     "smartsurvelliance": {
       "service": "AppSync",
@@ -16,7 +8,7 @@
           "defaultAuthentication": {
             "authenticationType": "API_KEY",
             "apiKeyConfig": {
-              "apiKeyExpirationDays": 90,
+              "apiKeyExpirationDays": 80,
               "description": ""
             }
           },
@@ -24,5 +16,30 @@
         }
       }
     }
-  }
+  },
+  "auth": {
+    "smartsurvelliancef8c6bcbd": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  },
+  "function": {
+    "smartsurvellianceb33048be": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "api",
+          "resourceName": "smartsurvelliance",
+          "attributes": [
+            "GraphQLAPIIdOutput"
+          ]
+        }
+      ]
+    }
+  },
+  "storage": {}
 }

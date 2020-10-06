@@ -1,240 +1,36 @@
 # this is an auto generated file. This will be overwritten
-mutation CreateBlog(
-  $input: CreateBlogInput!
-  $condition: ModelBlogConditionInput
+mutation CreateUserDetails(
+  $input: CreateUserDetailsInput!
+  $condition: ModelUserDetailsConditionInput
 ) {
-  createBlog(input: $input, condition: $condition) {
+  createUserDetails(input: $input, condition: $condition) {
     id
-    name
-    posts {
-      items {
-        id
-        title
-        blogID
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
+    fcmRegistrationId
+    userId
     createdAt
     updatedAt
   }
 }
-mutation UpdateBlog(
-  $input: UpdateBlogInput!
-  $condition: ModelBlogConditionInput
+mutation UpdateUserDetails(
+  $input: UpdateUserDetailsInput!
+  $condition: ModelUserDetailsConditionInput
 ) {
-  updateBlog(input: $input, condition: $condition) {
+  updateUserDetails(input: $input, condition: $condition) {
     id
-    name
-    posts {
-      items {
-        id
-        title
-        blogID
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
+    fcmRegistrationId
+    userId
     createdAt
     updatedAt
   }
 }
-mutation DeleteBlog(
-  $input: DeleteBlogInput!
-  $condition: ModelBlogConditionInput
+mutation DeleteUserDetails(
+  $input: DeleteUserDetailsInput!
+  $condition: ModelUserDetailsConditionInput
 ) {
-  deleteBlog(input: $input, condition: $condition) {
+  deleteUserDetails(input: $input, condition: $condition) {
     id
-    name
-    posts {
-      items {
-        id
-        title
-        blogID
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-    createdAt
-    updatedAt
-  }
-}
-mutation CreatePost(
-  $input: CreatePostInput!
-  $condition: ModelPostConditionInput
-) {
-  createPost(input: $input, condition: $condition) {
-    id
-    title
-    blogID
-    blog {
-      id
-      name
-      posts {
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-    comments {
-      items {
-        id
-        postID
-        content
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-    createdAt
-    updatedAt
-  }
-}
-mutation UpdatePost(
-  $input: UpdatePostInput!
-  $condition: ModelPostConditionInput
-) {
-  updatePost(input: $input, condition: $condition) {
-    id
-    title
-    blogID
-    blog {
-      id
-      name
-      posts {
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-    comments {
-      items {
-        id
-        postID
-        content
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-    createdAt
-    updatedAt
-  }
-}
-mutation DeletePost(
-  $input: DeletePostInput!
-  $condition: ModelPostConditionInput
-) {
-  deletePost(input: $input, condition: $condition) {
-    id
-    title
-    blogID
-    blog {
-      id
-      name
-      posts {
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-    comments {
-      items {
-        id
-        postID
-        content
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-    createdAt
-    updatedAt
-  }
-}
-mutation CreateComment(
-  $input: CreateCommentInput!
-  $condition: ModelCommentConditionInput
-) {
-  createComment(input: $input, condition: $condition) {
-    id
-    postID
-    post {
-      id
-      title
-      blogID
-      blog {
-        id
-        name
-        createdAt
-        updatedAt
-      }
-      comments {
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-    content
-    createdAt
-    updatedAt
-  }
-}
-mutation UpdateComment(
-  $input: UpdateCommentInput!
-  $condition: ModelCommentConditionInput
-) {
-  updateComment(input: $input, condition: $condition) {
-    id
-    postID
-    post {
-      id
-      title
-      blogID
-      blog {
-        id
-        name
-        createdAt
-        updatedAt
-      }
-      comments {
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-    content
-    createdAt
-    updatedAt
-  }
-}
-mutation DeleteComment(
-  $input: DeleteCommentInput!
-  $condition: ModelCommentConditionInput
-) {
-  deleteComment(input: $input, condition: $condition) {
-    id
-    postID
-    post {
-      id
-      title
-      blogID
-      blog {
-        id
-        name
-        createdAt
-        updatedAt
-      }
-      comments {
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-    content
+    fcmRegistrationId
+    userId
     createdAt
     updatedAt
   }

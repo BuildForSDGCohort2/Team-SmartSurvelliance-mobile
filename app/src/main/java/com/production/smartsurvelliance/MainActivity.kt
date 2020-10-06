@@ -26,11 +26,16 @@ import com.amplifyframework.auth.AuthException
 import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin
 import com.amplifyframework.auth.options.AuthSignOutOptions
 import com.amplifyframework.auth.result.AuthSignInResult
+import com.amplifyframework.core.Action
 import com.amplifyframework.core.Amplify
+import com.amplifyframework.core.Consumer
 import com.amplifyframework.core.InitializationStatus
 import com.amplifyframework.core.model.query.Where
-import com.amplifyframework.datastore.generated.model.User
-import com.amplifyframework.datastore.generated.model.Visitor
+import com.amplifyframework.datastore.DataStoreException
+import com.amplifyframework.datastore.generated.model.Post
+import com.amplifyframework.datastore.generated.model.Todo
+import com.amplifyframework.datastore.generated.model.UserDetail
+import com.amplifyframework.datastore.generated.model.UserDetails
 import com.amplifyframework.hub.HubChannel
 import com.amplifyframework.hub.HubEvent
 import com.google.android.gms.tasks.OnCompleteListener
@@ -91,82 +96,6 @@ class MainActivity : AppCompatActivity() {
 
         navView.setupWithNavController(navController)
 
-//        navController.addOnDestinationChangedListener { _, destination, _ ->
-//            toolbar.visibility = View.GONE
-//        }
-
-
-        val imageUrl = intent.getStringExtra("image_url")
-        Timber.d("Home $imageUrl")
-
-        if(imageUrl != null) {
-            displayDialog(imageUrl)
-        }
-
-        /**Fetch Current user session*/
-//        Amplify.Auth.fetchAuthSession(
-//            { result -> Timber.tag("FetchSession").i(result.toString()) },
-//            { error -> Timber.tag("FetchSession").e(error.toString()) }
-//        )
-
-//        saveToDataStore()
-//        loginUi()
-
-
-/*
-        Amplify.Auth.signOut(
-            AuthSignOutOptions.builder().globalSignOut(true).build(),
-            { Log.i("AuthQuickstart", "Signed out globally") },
-            { error -> Log.e("AuthQuickstart", error.toString()) }
-        )
-*/
-
-        try {
-            Timber.d("Getting Current User")
-
-            Amplify.Auth.currentUser?.let {
-
-            }
-
-
-                if(Amplify.Auth.currentUser != null) {
-                    Timber.d(Amplify.Auth.currentUser.toString())
-
-                    retriveCurrentToken()
-                } else {
-                    Timber.d("Current does not exist User")
-
-                    Amplify.Auth.signInWithWebUI(
-                        this,
-                        { result: AuthSignInResult ->
-                            run {
-                                Timber.tag("AuthQuickstart").i(
-                                    result.toString()
-                                )
-                            }
-
-
-
-                        },
-                        { error: AuthException ->
-                            Timber.tag("AuthQuickstartE").e(
-                                error.toString()
-                            )
-                        }
-                    )
-
-
-                }
-
-
-        }
-        catch(e: Exception) {
-            Timber.d("Current User does not exist");
-            e.printStackTrace()
-        }
-
-
-
         /**Subscribe to event listeners, listen to success or failure  from WebUi*/
         Amplify.Hub.subscribe(HubChannel.AUTH) { hubEvent: HubEvent<*> ->
 
@@ -191,6 +120,45 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+//        Amplify.DataStore.clear(
+//            { Timber.d("How ied end") },
+//            { Timber.e("Error while clearing cache") })
+//        navController.addOnDestinationChangedListener { _, destination, _ ->
+//            toolbar.visibility = View.GONE
+//        }
+
+
+        /**Load Image from image_url if Exist from bundle*/
+        val imageUrl = intent.getStringExtra("image_url")
+        Timber.d("Home $imageUrl")
+
+        if(imageUrl != null) {
+            displayDialog(imageUrl)
+        }
+
+        /**Fetch Current user session*/
+
+        try {
+            Timber.d("Getting Current User")
+
+                if(Amplify.Auth.currentUser != null) {
+                    Timber.d(Amplify.Auth.currentUser.toString())
+
+//                    retriveCurrentToken()
+                } else {
+                    Timber.d("Current does not exist User")
+                    loginUi()
+
+                }
+
+
+        }
+        catch(e: Exception) {
+            Timber.d("Current User does not exist");
+            e.printStackTrace()
+        }
+
+
 
 
     }
@@ -210,8 +178,8 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        val text = intent.getStringExtra("image_url")
-        Timber.d("HomeRe $text")
+//        val text = intent.getStringExtra("image_url")
+//        Timber.d("HomeRe $text")
 
         registerReceiver(broadcastReceiver, IntentFilter(KEY_NEW_VISITOR_FILTER))
     }
@@ -237,8 +205,9 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 // Get new Instance ID token
+                //var token = task.result?.token
                 val token = task.result?.token
-                Timber.d("Retrive $token")
+                Timber.d("Retrieve $token")
 
                 updatePhoneIdInDataStore(token!!)
 
@@ -263,19 +232,32 @@ class MainActivity : AppCompatActivity() {
         Amplify.Auth.signInWithWebUI(
             this,
             { result: AuthSignInResult ->
-                Timber.tag("AuthQuickstart").i(
-                    result.toString()
+                run {
+                    Timber.tag("AuthQuickstart SignIn").i(
+                        result.toString()
+                    )
+
+                    retriveCurrentToken()
+                }
+
+
+
+            },
+            { error: AuthException ->
+                Timber.tag("AuthQuickstartE").e(
+                    error.toString()
                 )
 
-
+                error.cause?.let {
+                    if (it.message == "user cancelled") {
+                        loginUi()
+                    }
+                }
             }
-        ) { error: AuthException ->
-            Timber.tag("AuthQuickstartE").e(
-                error.toString()
-            )
-        }
+        )
     }
 
+/*
     private fun saveToDataStore() {
         val imageUrl = "https://fetch-mc.s3.amazonaws.com/fetchmc/Wasse-picture-B13.jpg"
         val userID = "4b2c559c-d3fb-45f9-8ec9-cd676ea7dda5"
@@ -301,15 +283,15 @@ class MainActivity : AppCompatActivity() {
             { Log.i("MyAmplifyApp", "Observation complete.") }
         )
     }
+*/
 
     private fun updatePhoneIdInDataStore(newToken: String) {
-
-
         try {
 
             val currentUser = Amplify.Auth.currentUser.username
 
-            Amplify.DataStore.query(User::class.java, Where.matches(User.USER_ID.eq(currentUser)),
+            Amplify.DataStore.query(
+                UserDetail::class.java, Where.matches(UserDetail.USER_ID.eq(currentUser)),
                 { matches ->
                     if (matches.hasNext()) {
                         //Instance present
@@ -327,7 +309,7 @@ class MainActivity : AppCompatActivity() {
                                 .build()
 
                             Amplify.DataStore.save(edited,
-                                { Log.i("MyAmplifyApp", "Updated a user.") },
+                                { Log.i("MyAmplifyApp", "Updated a user.${it}") },
                                 { Log.e("MyAmplifyApp", "Update failed.", it) }
                             )
                         }
@@ -335,13 +317,13 @@ class MainActivity : AppCompatActivity() {
                     } else {
                         //Create new object in Data store if not created
 
-                        val user = User.builder()
+                        val user = UserDetail.builder()
                             .userId(currentUser)
                             .fcmRegistrationId(mutableListOf(newToken))
                             .build()
 
                         Amplify.DataStore.save(user,
-                            { Log.i("MyAmplifyApp", "Created a user.") },
+                            { Log.i("MyAmplifyApp", "Created a user.${it}", ) },
                             { Log.e("MyAmplifyApp", "Created failed.", it) }
                         )
                     }
@@ -367,6 +349,7 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
 }
 
 

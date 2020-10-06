@@ -17,7 +17,6 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.amplifyframework.api.ApiException
 import com.amplifyframework.api.graphql.model.ModelMutation
 import com.amplifyframework.core.Amplify
-import com.amplifyframework.datastore.generated.model.User
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.google.gson.Gson
@@ -55,16 +54,25 @@ class FirebaseMessagingService : FirebaseMessagingService() {
 
 
         remoteMessage.notification?.let {
-            val responseBody = remoteMessage.notification?.let { it.body }?:"Payment Feedback"
-            val responseTitle = remoteMessage.notification?.let { it.title }?:"Check Payment Status"
+            val responseBody = remoteMessage.notification?.let { it.body }?:"Confirm If you know this individual"
+            val responseTitle = remoteMessage.notification?.let { it.title }?:"Photo Identification"
 
 //            sendFCMNotification(this, responseBody)
-            val imageUrl = gson.fromJson(responseBody, VerificationData::class.java)
+            Timber.d("Game ${responseBody}")
+            Timber.d(remoteMessage.data.toString())
+
+//            var t = remoteMessage.data as VerificationData
+
+            Timber.d(remoteMessage.data["image_url"])
+
+            val imageUrl = remoteMessage.data["image_url"]
+
+//            val imageUrl = gson.fromJson(remoteMessage.data.toString(), VerificationData::class.java)
 
 
 //                val restaurant:Restaurant = gson.fromJson(restaurantString,Restaurant::class.java)
                 val intent = Intent(KEY_NEW_VISITOR_FILTER)
-                intent.putExtra("IMAGE_URL", imageUrl.imageUrl)
+                intent.putExtra("IMAGE_URL", imageUrl)
                 localBroadCastManager.sendBroadcast(intent)
         }
     }

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -22,8 +23,8 @@ import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin
 import com.amplifyframework.auth.options.AuthSignUpOptions
 import com.amplifyframework.core.InitializationStatus
 import com.amplifyframework.core.model.query.Where
-import com.amplifyframework.datastore.generated.model.Comment
-import com.amplifyframework.datastore.generated.model.Post
+import com.amplifyframework.datastore.generated.model.ImageRecognitionStatus
+import com.amplifyframework.datastore.generated.model.UserDetail
 import com.amplifyframework.hub.HubChannel
 import com.amplifyframework.hub.HubEvent
 
@@ -54,22 +55,13 @@ class HomeFragment : Fragment() {
 
     }
 
-    fun createPost() {
-        val post = Post.builder()
-            .title("create an Amplify DataStore App")
-            .build()
 
-        Amplify.DataStore.save(post,
-            {Timber.i("Saved a new post successfully")},
-            {Timber.tag("Error saving post").e(it)}
-        )
-    }
 
-    fun getPost() {
-        Amplify.DataStore.query(Post::class.java,
-            { result -> Timber.i("Posts retrieved successfully") },
-            { error -> Timber.tag("Error retrieving posts").e(  error) }
-        )
+//    fun getPost() {
+//        Amplify.DataStore.query(Post::class.java,
+//            { result -> Timber.i("Posts retrieved successfully") },
+//            { error -> Timber.tag("Error retrieving posts").e(  error) }
+//        )
 
 //        Amplify.DataStore.query(
 //            Comment::class.java, Where.matches(Post.STATUS.eq(PostStatus.ACTIVE)),
@@ -82,7 +74,7 @@ class HomeFragment : Fragment() {
 //            },
 //            { Log.e("MyAmplifyApp", "Query failed.", it) }
 //        )
-    }
+// }
 
 //    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 //        super.onActivityResult(requestCode, resultCode, data)
@@ -95,48 +87,5 @@ class HomeFragment : Fragment() {
 //        }
 //    }
 
-    //fun signIn(view: View?) {
-//        Amplify.Auth.signInWithWebUI(
-//            requireActivity(),
-//            { result: AuthSignInResult -> Timber.d( result.toString()) },
-//            { error: AuthException -> Timber.d( error.toString()) }
-//        )
-//        Amplify.Auth.signUp(
-//            "username",
-//            "Password123",
-//            AuthSignUpOptions.builder().userAttribute(AuthUserAttributeKey.email(), "my@email.com").build(),
-//            { result -> Timber.tag("AuthQuickStart").d("Result: $result") },
-//            { error -> Timber.tag("AuthQuickStart").d("Sign up failed $error") })
 
-//        fun signIn(view: View?) {
-//            Timber.d("Initiate Signin Sequence")
-//
-//            Amplify.Auth.fetchAuthSession(
-//                { result -> Timber.d( result.toString()) },
-//                { error -> Timber.e( error.toString()) }
-//            )
-//
-//            Amplify.Auth.signInWithWebUI(
-//                requireActivity(),
-//                { result: AuthSignInResult ->
-//                    Timber.d( result.toString())
-//
-//                    // fetch session details (incl token)
-//                    Amplify.Auth.fetchAuthSession(
-//                        { result -> Timber.d( result.toString()) },
-//                        { error -> Timber.d( error.toString()) }
-//                    )
-//
-//                    // get user details
-//                    val user = Amplify.Auth.currentUser
-//                    Timber.d( user.toString() )
-//
-//                },
-//                { error: AuthException -> Timber.d( error.toString()) }
-//            )
-//
-//        }
-
-
-    //}
 }
