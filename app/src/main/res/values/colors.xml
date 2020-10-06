@@ -9,4 +9,5 @@
     <color name="surveillance_black">#de000000</color>
     <color name="colorDecline">#D81B60</color>
     <color name="colorConfirm">#008577</color>
+    <color name="md_grey">#BDBDBD</color>
 </resources>

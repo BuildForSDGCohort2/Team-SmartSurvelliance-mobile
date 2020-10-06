@@ -7,5 +7,10 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
 
     <string name="default_notification_channel_id">DefaultNotificationChannelId</string>
+    <string name="title_full_screen">Full Screen</string>
+    <string name="title_live_feed">Live Feed</string>
+    <string name="title_support">Support</string>
+    <string name="title_subscriptions">Subscriptions</string>
+    <string name="title_faqs">Faqs</string>
 
 </resources>
