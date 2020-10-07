@@ -1,0 +1,37 @@
+# this is an auto generated file. This will be overwritten
+mutation CreateUserDetails(
+  $input: CreateUserDetailsInput!
+  $condition: ModelUserDetailsConditionInput
+) {
+  createUserDetails(input: $input, condition: $condition) {
+    id
+    fcmRegistrationId
+    userId
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateUserDetails(
+  $input: UpdateUserDetailsInput!
+  $condition: ModelUserDetailsConditionInput
+) {
+  updateUserDetails(input: $input, condition: $condition) {
+    id
+    fcmRegistrationId
+    userId
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteUserDetails(
+  $input: DeleteUserDetailsInput!
+  $condition: ModelUserDetailsConditionInput
+) {
+  deleteUserDetails(input: $input, condition: $condition) {
+    id
+    fcmRegistrationId
+    userId
+    createdAt
+    updatedAt
+  }
+}

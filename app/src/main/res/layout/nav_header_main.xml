@@ -2,35 +2,52 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="176dp"
+    android:layout_height="170dp"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/side_nav_bar"
+    android:background="@drawable/background_gradient"
     android:gravity="bottom"
-    android:orientation="vertical"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingBottom="2dp"
+    android:orientation="horizontal"
+    android:padding="8dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="-40dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="-20dp"
+        android:layout_width="74dp"
+        android:layout_height="90dp"
         android:contentDescription="Header"
-        app:srcCompat="@drawable/ic_launcher_foreground"
-        android:layout_marginStart="-20dp"
+        app:srcCompat="@drawable/dummy_profile"
         tools:ignore="VectorDrawableCompat" />
 
-    <TextView
-        android:id="@+id/text_view_nav_header_sub_title"
-        tools:text="Smart Surveillance"
-        android:text="Smart Surveillance"
-        android:textSize="20sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <RelativeLayout
+        android:layout_width="255dp"
+        android:layout_height="149dp"
+        android:layout_gravity="end">
+
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_margin="32dp"
+            android:layout_marginStart="32dp"
+            android:fontFamily="serif-monospace"
+            android:includeFontPadding="true"
+            android:text="Micheal Osmune"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/userEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/userName"
+            android:layout_alignEnd="@+id/userName"
+            android:layout_marginTop="8dp"
+            android:text="micosie20@gmail.com"
+            android:textColor="@color/black_overlay"
+            android:textSize="12sp" />
+
+    </RelativeLayout>
+
 
 </LinearLayout>

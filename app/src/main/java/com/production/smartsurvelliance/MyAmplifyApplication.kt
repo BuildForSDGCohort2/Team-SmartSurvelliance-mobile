@@ -17,6 +17,7 @@ class MyAmplifyApplication: Application() {
             Amplify.addPlugin(AWSCognitoAuthPlugin())
             Amplify.addPlugin(AWSDataStorePlugin())
             Amplify.addPlugin(AWSApiPlugin())
+
             Amplify.configure(applicationContext)
             Timber.tag("MyAmplifyApp").i( "Initialized Amplify")
         } catch (error: AmplifyException) {

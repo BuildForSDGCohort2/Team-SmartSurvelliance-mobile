@@ -26,9 +26,16 @@ import com.amplifyframework.auth.AuthException
 import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin
 import com.amplifyframework.auth.options.AuthSignOutOptions
 import com.amplifyframework.auth.result.AuthSignInResult
+import com.amplifyframework.core.Action
 import com.amplifyframework.core.Amplify
+import com.amplifyframework.core.Consumer
 import com.amplifyframework.core.InitializationStatus
-import com.amplifyframework.datastore.generated.model.Visitor
+import com.amplifyframework.core.model.query.Where
+import com.amplifyframework.datastore.DataStoreException
+import com.amplifyframework.datastore.generated.model.Post
+import com.amplifyframework.datastore.generated.model.Todo
+import com.amplifyframework.datastore.generated.model.UserDetail
+import com.amplifyframework.datastore.generated.model.UserDetails
 import com.amplifyframework.hub.HubChannel
 import com.amplifyframework.hub.HubEvent
 import com.google.android.gms.tasks.OnCompleteListener
@@ -46,12 +53,19 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private var broadcastReceiver : BroadcastReceiver  =  object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            val message = intent?.getStringExtra(KEY_MESSAGE)
-            buzz(BuzzType.NOTIFICATION.pattern, this@MainActivity)
-            Timber.d(message)
-            Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+            val imageUrl = intent?.getStringExtra("IMAGE_URL")
 
-            displayDialog()
+            buzz(BuzzType.NOTIFICATION.pattern, this@MainActivity)
+            Timber.d(imageUrl)
+
+            Toast.makeText(context, imageUrl, Toast.LENGTH_LONG).show()
+
+            if(imageUrl != null) {
+                displayDialog(imageUrl)
+            } else {
+                displayDialog("")
+            }
+
         }
 
     }
@@ -75,67 +89,18 @@ class MainActivity : AppCompatActivity() {
 //        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
 //        val navController = navHostFragment.navController
 
-        appBarConfiguration = AppBarConfiguration(setOf(R.id.nav_home, R.id.nav_dashboard, R.id.nav_settings), drawerLayout)
+        appBarConfiguration = AppBarConfiguration(setOf(
+            R.id.nav_home,
+            R.id.nav_dashboard,
+            R.id.nav_live_feed,
+            R.id.nav_notifications,
+            R.id.nav_customer_support,
+            R.id.nav_faqs,
+            R.id.nav_subscriptions), drawerLayout)
 
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         navView.setupWithNavController(navController)
-
-//        navController.addOnDestinationChangedListener { _, destination, _ ->
-//            toolbar.visibility = View.GONE
-//        }
-
-
-        val text = intent.getStringExtra("image_url")
-        Timber.d("Home $text")
-
-        if(text != null) {
-            displayDialog()
-        }
-
-        /**Fetch Current user session*/
-//        Amplify.Auth.fetchAuthSession(
-//            { result -> Timber.tag("FetchSession").i(result.toString()) },
-//            { error -> Timber.tag("FetchSession").e(error.toString()) }
-//        )
-
-//        saveToDataStore()
-//        loginUi()
-
-        Amplify.Auth.signInWithWebUI(
-            this,
-            { result: AuthSignInResult ->
-                Timber.tag("AuthQuickstart").i(
-                    result.toString()
-                )
-
-
-            }
-        ) { error: AuthException ->
-            Timber.tag("AuthQuickstartE").e(
-                error.toString()
-            )
-        }
-
-/*
-        Amplify.Auth.signOut(
-            AuthSignOutOptions.builder().globalSignOut(true).build(),
-            { Log.i("AuthQuickstart", "Signed out globally") },
-            { error -> Log.e("AuthQuickstart", error.toString()) }
-        )
-*/
-
-
-
-
-        try {
-            Timber.d(Amplify.Auth.currentUser.toString())
-        }
-        catch(e: Exception) {
-            e.printStackTrace()
-        }
-
-        retriveCurrentToken()
 
         /**Subscribe to event listeners, listen to success or failure  from WebUi*/
         Amplify.Hub.subscribe(HubChannel.AUTH) { hubEvent: HubEvent<*> ->
@@ -161,6 +126,45 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+//        Amplify.DataStore.clear(
+//            { Timber.d("How ied end") },
+//            { Timber.e("Error while clearing cache") })
+//        navController.addOnDestinationChangedListener { _, destination, _ ->
+//            toolbar.visibility = View.GONE
+//        }
+
+
+        /**Load Image from image_url if Exist from bundle*/
+        val imageUrl = intent.getStringExtra("image_url")
+        Timber.d("Home $imageUrl")
+
+        if(imageUrl != null) {
+            displayDialog(imageUrl)
+        }
+
+        /**Fetch Current user session*/
+
+        try {
+            Timber.d("Getting Current User")
+
+                if(Amplify.Auth.currentUser != null) {
+                    Timber.d(Amplify.Auth.currentUser.toString())
+
+//                    retriveCurrentToken()
+                } else {
+                    Timber.d("Current does not exist User")
+                    loginUi()
+
+                }
+
+
+        }
+        catch(e: Exception) {
+            Timber.d("Current User does not exist");
+            e.printStackTrace()
+        }
+
+
 
 
     }
@@ -180,8 +184,8 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        val text = intent.getStringExtra("image_url")
-        Timber.d("HomeRe $text")
+//        val text = intent.getStringExtra("image_url")
+//        Timber.d("HomeRe $text")
 
         registerReceiver(broadcastReceiver, IntentFilter(KEY_NEW_VISITOR_FILTER))
     }
@@ -207,8 +211,11 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 // Get new Instance ID token
+                //var token = task.result?.token
                 val token = task.result?.token
-                Timber.d(token)
+                Timber.d("Retrieve $token")
+
+                updatePhoneIdInDataStore(token!!)
 
                 // Log and toast
 //                val msg = getString(R.string.msg_token_fmt, token)
@@ -231,19 +238,32 @@ class MainActivity : AppCompatActivity() {
         Amplify.Auth.signInWithWebUI(
             this,
             { result: AuthSignInResult ->
-                Timber.tag("AuthQuickstart").i(
-                    result.toString()
+                run {
+                    Timber.tag("AuthQuickstart SignIn").i(
+                        result.toString()
+                    )
+
+                    retriveCurrentToken()
+                }
+
+
+
+            },
+            { error: AuthException ->
+                Timber.tag("AuthQuickstartE").e(
+                    error.toString()
                 )
 
-
+                error.cause?.let {
+                    if (it.message == "user cancelled") {
+                        loginUi()
+                    }
+                }
             }
-        ) { error: AuthException ->
-            Timber.tag("AuthQuickstartE").e(
-                error.toString()
-            )
-        }
+        )
     }
 
+/*
     private fun saveToDataStore() {
         val imageUrl = "https://fetch-mc.s3.amazonaws.com/fetchmc/Wasse-picture-B13.jpg"
         val userID = "4b2c559c-d3fb-45f9-8ec9-cd676ea7dda5"
@@ -269,23 +289,73 @@ class MainActivity : AppCompatActivity() {
             { Log.i("MyAmplifyApp", "Observation complete.") }
         )
     }
+*/
 
-    private fun displayDialog() {
+    private fun updatePhoneIdInDataStore(newToken: String) {
+        try {
+
+            val currentUser = Amplify.Auth.currentUser.username
+
+            Amplify.DataStore.query(
+                UserDetail::class.java, Where.matches(UserDetail.USER_ID.eq(currentUser)),
+                { matches ->
+                    if (matches.hasNext()) {
+                        //Instance present
+                        val original = matches.next()
+
+                        Log.i("MyAmplifyApp", original.toString())
+                        //Add fcmRegistration token if not preset
+                        if(!original.fcmRegistrationId.contains(newToken)){
+                            val currentFCMTokens = original.fcmRegistrationId
+                            currentFCMTokens.add(newToken)
+
+                            //Adde unique user ids to the edited user object
+                            val edited = original.copyOfBuilder()
+                                .fcmRegistrationId(currentFCMTokens.toSet().toMutableList())
+                                .build()
+
+                            Amplify.DataStore.save(edited,
+                                { Log.i("MyAmplifyApp", "Updated a user.${it}") },
+                                { Log.e("MyAmplifyApp", "Update failed.", it) }
+                            )
+                        }
+
+                    } else {
+                        //Create new object in Data store if not created
+
+                        val user = UserDetail.builder()
+                            .userId(currentUser)
+                            .fcmRegistrationId(mutableListOf(newToken))
+                            .build()
+
+                        Amplify.DataStore.save(user,
+                            { Log.i("MyAmplifyApp", "Created a user.${it}", ) },
+                            { Log.e("MyAmplifyApp", "Created failed.", it) }
+                        )
+                    }
+                },
+                { Log.e("MyAmplifyApp", "Query failed.", it) }
+            )
+        } catch (e: Exception) {
+            Timber.d("Games type")
+            e.printStackTrace()
+        }
+    }
+
+    private fun displayDialog(imageUrl: String = "") {
         val newFragment = VerifyPictureFragment.newInstance(true)
         val fm = supportFragmentManager.beginTransaction()
 
-//        newFragment.arguments = Bundle().apply {
-//            putString(ARGUMENT__ORDERID, orderId)
-//            putString(ARGUMENT__TIME, time)
-//            putString(ARGUMENT__RESTAURANT_NAME, restaurantName)
-//            putString(ARGUMENT__DISTANCE, distance)
-//        }
+        newFragment.arguments = Bundle().apply {
+            putString("IMAGE_URL", imageUrl)
+        }
 
         if(!newFragment.isVisible) {
             newFragment.show(fm, "Main")
         }
 
     }
+
 }
 
 

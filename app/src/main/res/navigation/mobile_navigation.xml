@@ -25,11 +25,26 @@
     <fragment
         android:id="@+id/nav_fullscreen"
         android:name="com.production.smartsurvelliance.ui.home.FullscreenFragment"
-        android:label="fragment_fullscreen"
+        android:label="@string/title_full_screen"
         tools:layout="@layout/fragment_fullscreen" />
     <fragment
         android:id="@+id/nav_live_feed"
         android:name="com.production.smartsurvelliance.ViewLiveFeedFragment"
-        android:label="Live Feed"
+        android:label="@string/title_live_feed"
         tools:layout="@layout/fragment_view_live_feed" />
+    <fragment
+        android:id="@+id/nav_customer_support"
+        android:name="com.production.smartsurvelliance.ui.support.SupportFragment"
+        android:label="@string/title_support"
+        tools:layout="@layout/fragment_support" />
+    <fragment
+        android:id="@+id/nav_subscriptions"
+        android:name="com.production.smartsurvelliance.ui.subscriptions.SubscriptionsFragment"
+        android:label="@string/title_subscriptions"
+        tools:layout="@layout/fragment_subscriptions" />
+    <fragment
+        android:id="@+id/nav_faqs"
+        android:name="com.production.smartsurvelliance.ui.faqs.FaqsFragment"
+        android:label="@string/title_faqs"
+        tools:layout="@layout/faqs_fragment" />
 </navigation>

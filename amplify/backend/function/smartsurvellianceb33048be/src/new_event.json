@@ -1,0 +1,40 @@
+{
+    "Records": [
+        {
+            "eventID": "38d76342e435744e1ead9a74865ba519",
+            "eventName": "INSERT",
+            "eventVersion": "1.1",
+            "eventSource": "aws:dynamodb",
+            "awsRegion": "us-east-1",
+            "dynamodb": {
+                "ApproximateCreationDateTime": 1601903716,
+                "Keys": {
+                    "id": {
+                        "S": "kdjflkjzdklfdalkjfdljkajfjladfjldf"
+                    }
+                },
+                "NewImage": {
+                    "isRecognised": {
+                        "BOOL": true
+                    },
+                    "imageUrl": {
+                        "S": "https://detection-garage.s3.amazonaws.com/UnknownFaces/XYZ123/_locko.jpg"
+                    },
+                    "id": {
+                        "S": "kdjflkjzdklfdalkjfdljkajfjladfjldf"
+                    },
+                    "individualsName": {
+                        "S": "individuals Name"
+                    },
+                    "userId": {
+                        "S": "cdf655a5-8c29-4f3a-96ec-f417a58aa338"
+                    }
+                },
+                "SequenceNumber": "100000000026877431365",
+                "SizeBytes": 207,
+                "StreamViewType": "NEW_AND_OLD_IMAGES"
+            },
+            "eventSourceARN": "arn:aws:dynamodb:us-east-1:209772379216:table/ImageRecognitionStatus-mnlk6vdryzhbzfwvniw47hvbfm-dev/stream/2020-10-05T12:25:14.905"
+        }
+    ]
+}
