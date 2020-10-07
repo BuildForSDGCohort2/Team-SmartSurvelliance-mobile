@@ -20,7 +20,7 @@ class SubscriptionsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.subscriptions_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_subscriptions, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
