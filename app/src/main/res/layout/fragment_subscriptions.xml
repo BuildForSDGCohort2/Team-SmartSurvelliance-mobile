@@ -50,22 +50,21 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clickable="false"
             android:drawablePadding="@dimen/icon_padding"
             android:gravity="center"
             android:padding="@dimen/padding_12"
             android:text="Bank Card"
             android:textSize="16sp"
             android:textStyle="bold"
+            android:clickable="true"
             app:drawableStartCompat="@drawable/ic_baseline_credit_card_24"
             tools:text="Bank Card" />
 
         <TextView
-            android:id="@+id/text_city"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/md_grey"
-            android:clickable="false"
+            android:clickable="true"
             android:gravity="center"
             android:padding="@dimen/padding_12"
             android:text="Credit, Debit, Master"
@@ -90,7 +89,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textCard">
 
         <TextView
-            android:clickable="false"
+            android:clickable="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawablePadding="@dimen/icon_padding"
@@ -103,7 +102,7 @@
             tools:text="Paystack" />
 
         <TextView
-            android:clickable="false"
+            android:clickable="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/md_grey"
