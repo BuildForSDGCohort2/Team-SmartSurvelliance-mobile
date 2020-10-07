@@ -12,5 +12,11 @@
     <string name="title_support">Support</string>
     <string name="title_subscriptions">Subscriptions</string>
     <string name="title_faqs">Faqs</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_sign_out">Sign Out</string>
+    <string name="title_settings">Settings</string>
+    <string name="title_video_stream">Video Stream</string>
 
 </resources>
