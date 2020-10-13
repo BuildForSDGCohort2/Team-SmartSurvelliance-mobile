@@ -1,6 +1,7 @@
 package com.production.smartsurvelliance.helper
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Build
 import android.widget.ImageView
@@ -52,5 +53,12 @@ private fun buildMediaSource(
 fun ImageView.loadImage(url:String?){
     Timber.d(url.toString())
     Picasso.get().load(url).into(this)
+}
+
+fun SharedPreferences.saveProfileLanguage(language: String) {
+    with(this.edit()) {
+        putString(PREF_LANGUAGE , language)
+        apply()
+    }
 }
 

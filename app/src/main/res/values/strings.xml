@@ -19,4 +19,16 @@
     <string name="title_settings">Settings</string>
     <string name="title_video_stream">Video Stream</string>
 
+    <string-array name="titles">
+        <item>Notify You of Intruders</item>
+        <item>Stream From Camera</item>
+        <item>Attach names to visitors</item>
+    </string-array>
+
+    <string-array name="descriptions">
+        <item>Get notified of intruders who get close to your store or home</item>
+        <item>Watch live streams from camera in front on store</item>
+        <item>Attach names to visitors you know</item>
+    </string-array>
+
 </resources>

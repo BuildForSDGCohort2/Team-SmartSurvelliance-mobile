@@ -12,11 +12,7 @@ const util = require('util');
 const axios = require('axios');
 const { PassThrough } = require('stream')
 
-
-// AWS.config.loadFromPath('./config.json');
 var s3 = new AWS.S3({apiVersion: '2006-03-01'});
-
-
 
 exports.handler = event => {
   //eslint-disable-line
@@ -24,7 +20,6 @@ exports.handler = event => {
 
   var callers = [];
 
- 
     event.Records.forEach(record => {
       console.log(record.eventID);
       console.log(record.eventName);
@@ -110,7 +105,7 @@ async function putFromUrl(url, bucket, key) {
   })
   .promise();
 
-  console.log(`Function Called: Trasfering to S3 ${key}`)
+   console.log(`Function Called: Trasfering to S3 ${key}`)
 
   responseStream.data.pipe(passThrough);
 
@@ -123,39 +118,4 @@ async function putFromUrl(url, bucket, key) {
       console.log("Error In function")
       throw e;
     });
-
-
-
-
-
-
-  // const passThrough = new PassThrough();
-  
-  //  await request({
-  //       url: url,
-  //       encoding: null
-  //   }, function(err, res, body) {
-  //       if (err)
-  //           return callback(err, res);
-
-  //       s3.putObject({
-  //           Bucket: bucket,
-  //           Key: key,
-  //           ContentType: res.headers['content-type'],
-  //           ContentLength: res.headers['content-length'],
-  //           Body: body // buffer
-  //       }).promise()
-  //   })
 }
-
-
-// const uploadFromStream = ( fileResponse, fileName,  bucket) => {
-//   return s3.upload({
-//       Bucket: bucket,
-//       Key: fileName,
-//       ContentType: fileResponse.headers['content-type'],
-//       ContentLength: fileResponse.headers['content-length'],
-//       Body: fileResponse.data,
-//     })
-//     .promise();
-// };
