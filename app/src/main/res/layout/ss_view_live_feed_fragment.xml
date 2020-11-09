@@ -36,7 +36,7 @@
 <!--        android:id="@+id/player_view"-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="400dp"-->
-<!--        app:default_artwork="@drawable/ic_baseline_videocam_24"-->
+<!--        app:default_artwork="@drawable/ic_baseline_videocam"-->
 <!--        app:show_buffering="always" />-->
 
 <!--    <VideoView-->
@@ -58,7 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:background="@color/colorPrimary"
+        android:background="@color/primaryColor"
         android:fontFamily="sans-serif-medium"
         android:gravity="center"
         android:paddingStart="40dp"

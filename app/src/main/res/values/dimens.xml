@@ -7,4 +7,6 @@
     <dimen name="dimens2">2dp</dimen>
     <dimen name="padding_8">8dp</dimen>
     <dimen name="padding4">4dp</dimen>
+    <dimen name="dimen_16">16dp</dimen>
+    <dimen name="dimen_24">24dp</dimen>
 </resources>

@@ -10,12 +10,13 @@
     <ImageView
         android:id="@+id/slideImageView"
         android:layout_width="wrap_content"
-        android:layout_height="150dp"
-        android:layout_marginTop="42dp"
+        android:layout_height="180dp"
+        android:padding="16dp"
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_logo" />
+        app:srcCompat="@mipmap/ss_logo" />
 
     <TextView
         android:id="@+id/textView"

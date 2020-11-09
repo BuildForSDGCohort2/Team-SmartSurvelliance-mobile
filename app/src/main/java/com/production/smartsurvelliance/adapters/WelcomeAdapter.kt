@@ -8,10 +8,9 @@ import android.widget.ImageView
 import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
 import com.production.smartsurvelliance.R
 import com.production.smartsurvelliance.helper.GettingStartedData
-import kotlinx.android.synthetic.main.activity_getting_started.*
+import kotlinx.android.synthetic.main.ss_getting_started_activity.*
 import timber.log.Timber
 
 class WelcomeAdapter(val context: Context, val pagingCallBack: (language: String) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -31,14 +30,14 @@ class WelcomeAdapter(val context: Context, val pagingCallBack: (language: String
 
         if(viewType == TYPE_LANGUAGE) {
             val itemLayout = LayoutInflater.from(parent.context).inflate(
-                R.layout.item_select_language,
+                R.layout.ss_select_language_item,
                 parent,
                 false
             )
             return LanguageSelectViewHolder(itemLayout)
         } else {
             val itemLayout = LayoutInflater.from(parent.context).inflate(
-                R.layout.item_welcome_slide,
+                R.layout.ss_welcome_slide_item,
                 parent,
                 false
             )
@@ -111,5 +110,4 @@ class LanguageSelectViewHolder(itemView: View): RecyclerView.ViewHolder(itemView
 //    val imageView: ImageView = itemView.findViewById(R.id.slideImageView)
 //    val titleTextView: TextView = itemView.findViewById(R.id.textViewTitle)
 //    val descriptionTextView: TextView = itemView.findViewById(R.id.textViewDescription)
-
 }

@@ -84,7 +84,7 @@
                     android:text="Edit Account"
                     android:textAllCaps="true"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                    android:textColor="@color/colorPrimary" />
+                    android:textColor="@color/primaryColor" />
             </RelativeLayout>
 
 
@@ -101,7 +101,7 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="8dp"
                 android:text="Sign Out"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/primaryColor"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/cardView"

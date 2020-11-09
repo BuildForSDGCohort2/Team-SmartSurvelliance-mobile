@@ -4,14 +4,12 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 import android.net.Uri
 import android.os.Bundle
-import android.text.style.TtsSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.LinearLayout
-import android.widget.TimePicker
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -19,7 +17,7 @@ import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.ExoPlayerFactory
 import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
-import kotlinx.android.synthetic.main.fragment_view_live_feed.*
+import kotlinx.android.synthetic.main.ss_view_live_feed_fragment.*
 import org.videolan.libvlc.LibVLC
 import org.videolan.libvlc.Media
 import org.videolan.libvlc.MediaPlayer
@@ -105,7 +103,7 @@ class ViewLiveFeedFragment : Fragment() {
 
         exoPlayer = ExoPlayerFactory.newSimpleInstance(this.context, trackSelector)
 
-        return inflater.inflate(R.layout.fragment_view_live_feed, container, false)
+        return inflater.inflate(R.layout.ss_view_live_feed_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

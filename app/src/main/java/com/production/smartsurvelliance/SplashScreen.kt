@@ -8,11 +8,11 @@ import android.os.Handler
 class SplashScreen : AppCompatActivity() {
 
     //Splash screen timer
-    private val SPLASH_TIME_OUT : Long= 5000
+    private val SPLASH_TIME_OUT = 3000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash_screen)
+        setContentView(R.layout.ss_splash_screen_activity)
 
         Handler().postDelayed(object:Runnable {
             /*
@@ -22,11 +22,11 @@ class SplashScreen : AppCompatActivity() {
           override fun run() {
                 // This method will be executed once the timer is over
                 // Start your app main activity
-                val i = Intent(this@SplashScreen, MainActivity::class.java)
-                startActivity(i)
+                val homeIntent = Intent(this@SplashScreen, MainActivity::class.java)
+                startActivity(homeIntent)
                 // close this activity
                 finish()
             }
-        }, SPLASH_TIME_OUT)
+        }, SPLASH_TIME_OUT.toLong())
     }
 }

@@ -4,9 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.MotionEvent
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.production.smartsurvelliance.MainActivity
@@ -16,7 +14,7 @@ import com.production.smartsurvelliance.adapters.WelcomeAdapter
 import com.production.smartsurvelliance.helper.PREF_FILE
 import com.production.smartsurvelliance.helper.PREF_IS_FIRST_TIME
 import com.production.smartsurvelliance.helper.saveProfileLanguage
-import kotlinx.android.synthetic.main.activity_getting_started.*
+import kotlinx.android.synthetic.main.ss_getting_started_activity.*
 import timber.log.Timber
 
 class GettingStartedActivity : AppCompatActivity() {
@@ -24,7 +22,7 @@ class GettingStartedActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_getting_started)
+        setContentView(R.layout.ss_getting_started_activity)
 
         supportActionBar?.hide()
 

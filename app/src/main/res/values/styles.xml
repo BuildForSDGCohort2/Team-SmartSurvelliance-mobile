@@ -1,12 +1,63 @@
-<resources>
-    <!-- Base application theme. -->
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base material application theme. -->
+    <style name="Theme.SmartSurveillance" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:textColorPrimary">@color/primaryTextColor</item>
+
+        <!--Navigation Drawer-->
+        <item name="colorNavigationItem">@color/menu_item_color_state</item>
+        <item name="colorNavigationItemSelected">@color/colorWhite</item>
+        <item name="drawableNavigationItemBackground">@drawable/menu_background_color_state</item>
+    </style>
+
+    <style name="Widget.SmartSurveillance.NavigationView" parent="Widget.Design.NavigationView">
+        <item name="itemIconTint">?attr/colorNavigationItem</item>
+        <item name="itemTextColor">?attr/colorNavigationItem</item>
+        <item name="itemBackground">?attr/drawableNavigationItemBackground</item>
+    </style>
+
+    <style name="Widget.SmartSurveillance.Button" parent="Widget.MaterialComponents.Button">
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="backgroundTint">?attr/colorPrimaryDark</item>
+        <item name="android:stateListAnimator" tools:ignore="NewApi">
+            @animator/ss_next_button_state_anim
+        </item>
+    </style>
+
+    <style name="Widget.SmartSurveillance.Button.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+    </style>
+
+    <style name="Widget.SmartSurveillance.Toolbar" parent="Widget.AppCompat.Toolbar">
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="android:theme">@style/Theme.SmartSurveillance</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="titleTextAppearance">@style/TextAppearance.SmartSurveillance.Toolbar</item>
+    </style>
+
+    <style name="TextAppearance.SmartSurveillance.Toolbar" parent="TextAppearance.MaterialComponents.Button">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextAppearance.SmartSurveillance.Card" parent="TextAppearance.MaterialComponents.Subtitle2">
+        <item name="android:elevation">2dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/colorWhite</item>
+
+    </style>
+
+
+    <!--Base Application theme-->
+
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
         <item name="colorAccent">@color/colorAccent</item>
 <!--        <item name="windowActionBar">false</item>-->
-<!--        <item name="windowNoTitle">true</item>-->
     </style>
 
     <style name="Custom.Theme" parent="android:style/Theme.Holo.Light">
@@ -15,7 +66,6 @@
         <item name="android:textAlignment">center</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
@@ -24,8 +74,14 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowBackground">@drawable/splash_screen_background</item>
+    <style name="AppTheme.Title.Collapsed" parent="android:TextAppearance">
+        <item name="android:textSize">20sp</item>
     </style>
+
+    <style name="AppTheme.Title.Expanded" parent="android:TextAppearance">
+        <item name="android:textSize">48sp</item>
+    </style>
+
+
 
 </resources>

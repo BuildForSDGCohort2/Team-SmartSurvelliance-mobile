@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#2BA5A5</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#2BB2A7</color>
+    <color name="primaryColor">#2196f3</color>
+    <color name="primaryLightColor">#6ec6ff</color>
+    <color name="primaryDarkColor">#0069c0</color>
+    <color name="colorAccent">#6ec6ff</color>
+    <color name="primaryTextColor">#000000</color>
+    <color name="secondaryTextColor">#F8F8F8</color>
     <color name="black_overlay">#66000000</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="backgroundColor">#F8F8F8</color>
     <color name="playerBackground">#E1EBF6</color>
     <color name="surveillance_black">#de000000</color>
     <color name="colorDecline">#D81B60</color>
     <color name="colorConfirm">#008577</color>
+    <color name="colorLive">#02F29C</color>
+    <color name="colorOffline">#FF473A</color>
     <color name="md_grey">#BDBDBD</color>
 </resources>

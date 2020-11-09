@@ -18,6 +18,9 @@
     <string name="action_sign_out">Sign Out</string>
     <string name="title_settings">Settings</string>
     <string name="title_video_stream">Video Stream</string>
+    <string name="ss_search_title">Search</string>
+    <string name="welcome_message">Welcome to Smart  Surveillance System</string>
+    <string name="others_title">Others</string>
 
     <string-array name="titles">
         <item>Notify You of Intruders</item>
