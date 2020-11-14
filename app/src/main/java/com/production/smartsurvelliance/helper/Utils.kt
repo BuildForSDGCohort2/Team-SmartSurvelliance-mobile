@@ -31,9 +31,9 @@ object GettingStartedData {
         val descriptions = context.resources.getStringArray(R.array.descriptions)
 
         val items = ArrayList<Triple<String,String,Int>>()
-        items.add(Triple(titles[0],descriptions[0], R.drawable.ic_logo))
-        items.add(Triple(titles[1],descriptions[1],R.drawable.ic_logo))
-        items.add(Triple(titles[2],descriptions[2],R.drawable.ic_logo))
+        items.add(Triple(titles[0],descriptions[0], R.mipmap.ss_logo))
+        items.add(Triple(titles[1],descriptions[1],R.mipmap.ss_logo))
+        items.add(Triple(titles[2],descriptions[2],R.mipmap.ss_logo))
         return items
     }
 }

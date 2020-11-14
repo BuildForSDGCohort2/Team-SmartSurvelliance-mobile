@@ -21,6 +21,11 @@
     <string name="ss_search_title">Search</string>
     <string name="welcome_message">Welcome to Smart  Surveillance System</string>
     <string name="others_title">Others</string>
+    <string name="paystack_text">Card, Bank Account, Bank Transfer, USSD Visa</string>
+    <string name="paystack_title">Paystack</string>
+    <string name="credit_card_text">Credit, Debit, Master</string>
+    <string name="card_title">Bank Card</string>
+    <string name="mode_ofp_title">Select a Mode of Payment</string>
 
     <string-array name="titles">
         <item>Notify You of Intruders</item>

@@ -23,6 +23,6 @@ tools:openDrawer="start">
     android:clipToPadding="false"
     android:fitsSystemWindows="true"
     app:headerLayout="@layout/ss_main_nav_header"
-    app:menu="@menu/activity_main_drawer"/>
+    app:menu="@menu/ss_main_drawer_activity"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -8,19 +8,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.settings.SettingsFragment">
 
-  <!--  <androidx.appcompat.widget.Toolbar
-        android:id="@+id/settings_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:background="@android:color/white"
-        android:elevation="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
-        app:title="Settings">
-
-    </androidx.appcompat.widget.Toolbar>-->
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -60,8 +47,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:padding="@dimen/padding4"
-                    android:text="Micheal Ossy"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+                    android:text="Micheal Osumune"/>
 
                 <TextView
                     android:id="@+id/userEmail"
@@ -72,6 +58,7 @@
                     android:text="micosie20@gmail.com"
                     android:textColor="@color/black_overlay"
                     android:textSize="12sp" />
+
 
                 <TextView
                     android:id="@+id/editAccounttextView"
@@ -93,18 +80,16 @@
 
     </androidx.cardview.widget.CardView>
 
-            <Button
-                android:id="@+id/buttonSignOut"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="8dp"
-                android:text="Sign Out"
-                android:textColor="@color/primaryColor"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/cardView"
-                app:layout_constraintTop_toBottomOf="@+id/cardView" />
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:textSize="18sp"
+        android:text="Sign Out"
+        android:layout_margin="8dp"
+        android:padding="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/cardView"
+        app:layout_constraintStart_toStartOf="@+id/cardView"
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

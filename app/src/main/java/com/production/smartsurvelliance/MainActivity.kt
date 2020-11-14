@@ -84,7 +84,8 @@ class MainActivity : AppCompatActivity() {
             R.id.nav_notifications,
             R.id.nav_customer_support,
             R.id.nav_faqs,
-            R.id.nav_subscriptions), drawerLayout)
+            R.id.nav_subscriptions,
+            R.id.nav_settings), drawerLayout)
 
         setupActionBarWithNavController(navController, appBarConfiguration)
 
@@ -158,7 +159,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-            menuInflater.inflate(R.menu.main, menu)
+            menuInflater.inflate(R.menu.ss_main_toolbar_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
 

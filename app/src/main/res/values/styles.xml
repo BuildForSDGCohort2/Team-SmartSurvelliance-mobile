@@ -5,20 +5,21 @@
         <item name="colorPrimaryDark">@color/primaryDarkColor</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
-        <item name="android:textColorPrimary">@color/primaryTextColor</item>
+        <item name="android:textColorPrimary">@color/secondaryTextColor</item>
 
         <!--Navigation Drawer-->
         <item name="colorNavigationItem">@color/menu_item_color_state</item>
         <item name="colorNavigationItemSelected">@color/colorWhite</item>
         <item name="drawableNavigationItemBackground">@drawable/menu_background_color_state</item>
     </style>
-
+         <!--Navigation view-->
     <style name="Widget.SmartSurveillance.NavigationView" parent="Widget.Design.NavigationView">
         <item name="itemIconTint">?attr/colorNavigationItem</item>
         <item name="itemTextColor">?attr/colorNavigationItem</item>
         <item name="itemBackground">?attr/drawableNavigationItemBackground</item>
     </style>
 
+    <!--MDC Button-->
     <style name="Widget.SmartSurveillance.Button" parent="Widget.MaterialComponents.Button">
         <item name="android:textColor">?android:attr/textColorPrimary</item>
         <item name="backgroundTint">?attr/colorPrimaryDark</item>
@@ -27,10 +28,12 @@
         </item>
     </style>
 
+    <!--MDC Text Button-->
     <style name="Widget.SmartSurveillance.Button.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="android:textColor">?android:attr/textColorPrimary</item>
     </style>
 
+    <!--Toolbar-->
     <style name="Widget.SmartSurveillance.Toolbar" parent="Widget.AppCompat.Toolbar">
         <item name="android:background">?attr/colorPrimary</item>
         <item name="android:theme">@style/Theme.SmartSurveillance</item>
@@ -38,16 +41,33 @@
         <item name="titleTextAppearance">@style/TextAppearance.SmartSurveillance.Toolbar</item>
     </style>
 
+
     <style name="TextAppearance.SmartSurveillance.Toolbar" parent="TextAppearance.MaterialComponents.Button">
         <item name="android:textSize">16sp</item>
     </style>
 
+    <!--Card View Text-->
     <style name="TextAppearance.SmartSurveillance.Card" parent="TextAppearance.MaterialComponents.Subtitle2">
         <item name="android:elevation">2dp</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
 
     </style>
+
+    <!--Home Screen Text-->
+    <style name="TextAppearance.SmartSurveillance.Main" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="TextAppearance.SmartSurveillance.MainText" parent="TextAppearance.AppCompat.Large">
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
 
 
     <!--Base Application theme-->

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    
+    <data>
+        <variable
+            name="camera"
+            type="com.production.smartsurvelliance.model.CameraFeedData" >
+
+        </variable>
+    </data>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="200dp"
+    android:layout_height="300dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardBackgroundColor="@android:color/transparent"
+    app:cardElevation="10dp"
+    android:id="@+id/camera_id"
+    app:cardCornerRadius="8dp"
+    android:layout_margin="4dp"
+    app:cardPreventCornerOverlap="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:background="@color/md_grey"
+                android:orientation="horizontal"
+                android:padding="4dp"
+                tools:ignore="UselessParent">
+
+                <TextView
+                    android:id="@+id/connection_status"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:drawablePadding="1dp"
+                    android:text="@{camera.status}"
+                    tools:text = "Live"
+                    android:textColor="@color/colorLive"
+                    android:textSize="12sp"
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    app:drawableStartCompat="@drawable/ic_baseline_lens_live" />
+
+
+                <TextView
+                    android:id="@+id/camera_details"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:text="@{camera.details}"
+                    style="@style/TextAppearance.SmartSurveillance.Card"
+                    tools:text="Queens park: 2203 Mitchglow lane"
+                    android:textSize="10sp"
+                    android:drawablePadding="2dp"
+                    android:layout_weight="2"
+                    app:drawableStartCompat="@drawable/ic_baseline_location" />
+
+            </LinearLayout>
+
+            <VideoView
+                android:id="@+id/video_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="3"
+                android:backgroundTint="@color/surveillance_black" />
+
+        </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
+</layout>
