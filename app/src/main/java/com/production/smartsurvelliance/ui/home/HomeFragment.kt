@@ -1,60 +1,68 @@
 package com.production.smartsurvelliance.ui.home
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
-import android.widget.Toast
+import android.view.*
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.amplifyframework.auth.AuthChannelEventName
-import com.amplifyframework.core.Amplify
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.production.smartsurvelliance.R
-import timber.log.Timber
-import com.amplifyframework.auth.result.AuthSignInResult
-import com.amplifyframework.auth.AuthException
-import com.amplifyframework.auth.AuthProvider
-import com.amplifyframework.auth.AuthUserAttributeKey
-import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin
-import com.amplifyframework.auth.options.AuthSignUpOptions
-import com.amplifyframework.core.InitializationStatus
-import com.amplifyframework.core.model.query.Where
-import com.amplifyframework.datastore.generated.model.ImageRecognitionStatus
-import com.amplifyframework.datastore.generated.model.UserDetail
-import com.amplifyframework.hub.HubChannel
-import com.amplifyframework.hub.HubEvent
+import com.production.smartsurvelliance.adapters.HomeRecyclerViewAdapter
+import com.production.smartsurvelliance.model.CameraFeedData
+import kotlinx.android.synthetic.main.ss_home_fragment.*
+import kotlinx.android.synthetic.main.ss_home_fragment.view.*
 
 class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
-
-    override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? {
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
-        homeViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
-        return root
-    }
+    private  var cameraFeedList = mutableListOf<CameraFeedData>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
     }
+
+    override fun onCreateView(
+            inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        // Inflate the layout for this fragment with the Home theme
+        val view = inflater.inflate(R.layout.ss_home_fragment, container, false)
+
+        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
+
+        //Setup RecyclerView
+        view.recycler_view.setHasFixedSize(true)
+        val layoutManager = LinearLayoutManager(context,RecyclerView.HORIZONTAL,false)
+
+        view.recycler_view.layoutManager = layoutManager
+        populateCameraFeedList()
+
+       /* val adapter = HomeRecyclerViewAdapter(cameraFeedList,context)
+        recycler_view.adapter = adapter*/
+        return view
+    }
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val adapter = HomeRecyclerViewAdapter(cameraFeedList,context)
+        recycler_view.adapter = adapter
+
+    }
+     /*Function to be removed*/
+    private fun populateCameraFeedList(){
+         val camera1 = CameraFeedData("Live","St 23 MountView")
+         val camera2 = CameraFeedData("Offline", "20th Ibadan Str")
+         val camera3 = CameraFeedData("Live", "Obieri Plaza")
+         val camera4 = CameraFeedData("Offline", "12th Lane Lagos Str")
+
+         cameraFeedList.add(camera1)
+         cameraFeedList.add(camera2)
+         cameraFeedList.add(camera3)
+         cameraFeedList.add(camera4)
 
     }
 
+    /*Function to check status of video feed and return while changing the drawable colour to either red or green*/
 
 
 //    fun getPost() {

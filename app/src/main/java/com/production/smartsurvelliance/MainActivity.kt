@@ -6,43 +6,31 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import android.util.Log
-import android.view.View
+import android.view.Menu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.amazonaws.mobile.client.SignOutOptions
-import com.amplifyframework.api.ApiException
-import com.amplifyframework.api.graphql.model.ModelMutation
 import com.amplifyframework.auth.AuthChannelEventName
 import com.amplifyframework.auth.AuthException
 import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin
-import com.amplifyframework.auth.options.AuthSignOutOptions
 import com.amplifyframework.auth.result.AuthSignInResult
-import com.amplifyframework.core.Action
 import com.amplifyframework.core.Amplify
-import com.amplifyframework.core.Consumer
 import com.amplifyframework.core.InitializationStatus
 import com.amplifyframework.core.model.query.Where
-import com.amplifyframework.datastore.DataStoreException
-import com.amplifyframework.datastore.generated.model.Post
-import com.amplifyframework.datastore.generated.model.Todo
 import com.amplifyframework.datastore.generated.model.UserDetail
-import com.amplifyframework.datastore.generated.model.UserDetails
 import com.amplifyframework.hub.HubChannel
 import com.amplifyframework.hub.HubEvent
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.iid.FirebaseInstanceId
 import com.production.smartsurvelliance.helper.BuzzType
-import com.production.smartsurvelliance.helper.KEY_MESSAGE
 import com.production.smartsurvelliance.helper.KEY_NEW_VISITOR_FILTER
 import com.production.smartsurvelliance.helper.buzz
 import com.production.smartsurvelliance.ui.dialogs.VerifyPictureFragment
@@ -72,13 +60,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.ss_main_activity)
 
         if(BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
 
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        val toolbar = findViewById<Toolbar>(R.id.app_bar)
         setSupportActionBar(toolbar)
 
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
@@ -96,7 +84,8 @@ class MainActivity : AppCompatActivity() {
             R.id.nav_notifications,
             R.id.nav_customer_support,
             R.id.nav_faqs,
-            R.id.nav_subscriptions), drawerLayout)
+            R.id.nav_subscriptions,
+            R.id.nav_settings), drawerLayout)
 
         setupActionBarWithNavController(navController, appBarConfiguration)
 
@@ -167,6 +156,11 @@ class MainActivity : AppCompatActivity() {
 
 
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+            menuInflater.inflate(R.menu.ss_main_toolbar_menu, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
     override fun onSupportNavigateUp(): Boolean {

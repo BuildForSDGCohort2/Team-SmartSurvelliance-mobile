@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home"
+            android:title="@string/title_home"/>
+
+        <item
+            android:id="@+id/nav_dashboard"
+            android:icon="@drawable/ic_dashboard"
+            android:title="@string/title_dashboard"/>
+
+
+        <item
+            android:id="@+id/nav_live_feed"
+            android:icon="@drawable/ic_baseline_videocam"
+            android:title="@string/title_video_stream"/>
+
+        <item
+            android:id="@+id/nav_notifications"
+            android:icon="@drawable/ic_baseline_notifications"
+            android:title="@string/title_notifications"/>
+
+    </group>
+
+    <item android:title="@string/others_title">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_customer_support"
+                    android:icon="@drawable/ic_baseline_contact_support"
+                    android:title="@string/title_support"/>
+
+                <item
+                    android:id="@+id/nav_faqs"
+                    android:icon="@drawable/ic_baseline_question_answer"
+                    android:title="@string/title_faqs"/>
+
+                <item
+                    android:id="@+id/nav_subscriptions"
+                    android:icon="@drawable/ic_baseline_subscriptions"
+                    android:title="@string/title_subscriptions"/>
+
+                <item
+                    android:id="@+id/nav_settings"
+                    android:icon="@drawable/ic_baseline_settings"
+                    android:title="@string/title_settings" />
+            </group>
+
+        </menu>
+    </item>
+
+
+</menu>

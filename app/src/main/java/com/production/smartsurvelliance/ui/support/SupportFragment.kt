@@ -20,7 +20,7 @@ class SupportFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_support, container, false)
+        return inflater.inflate(R.layout.ss_support_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.support.SupportFragment">
+
+    <LinearLayout
+        android:id="@+id/text_chat_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/border"
+        android:padding="4dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_12"
+                android:gravity="center"
+                android:clickable="false"
+                android:drawablePadding="@dimen/icon_padding"
+                android:text="Chat"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:text="Chat"
+                app:drawableStartCompat="@drawable/ic_ss_chat_bubble" />
+
+                <TextView
+                    android:id="@+id/text_city"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:clickable="false"
+                    android:padding="@dimen/padding_12"
+                    android:text="Text chat"
+                    android:background="?attr/colorAccent"
+                    android:textSize="14sp"
+                    tools:text="Text chat" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/text_contact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:padding="4dp"
+        android:background="@drawable/border"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_chat_title">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/icon_padding"
+            android:gravity="center"
+            android:padding="@dimen/padding_12"
+            android:text="Contact"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:drawableStartCompat="@drawable/ic_ss_contacts"
+            tools:text="Contact" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorAccent"
+            android:gravity="center"
+            android:padding="@dimen/padding_12"
+            android:text="Email. Phone number, etc"
+            android:textSize="14sp"
+            tools:text="Email. Phone number, etc" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
